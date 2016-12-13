@@ -1,0 +1,7 @@
+.barrage{position: absolute;top:100px;bottom:70px;right:-500px;display: inline-block;width: 500px;z-index: 99999;font-family: 'Open Sans','Microsoft JhengHei', sans-serif;}
+.barrage_box{background-color: #f5f6f7;padding-right: 8px; height: 24px;display: inline-block;border-radius: 15px;transition: all .3s;}
+.barrage_box .portrait{ display: inline-block;  width: 32px;height: 22px;border-radius: 50%;overflow: hidden;}
+.barrage_box div.p a{ margin-right: 2px; font-size: 8px;color: #fff;line-height: 22px;margin-left: 12px; }
+.barrage_box div.p a:hover{text-decoration: underline;}
+.barrage .z {float: left !important;}
+.barrage  a{text-decoration:none;}

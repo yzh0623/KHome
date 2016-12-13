@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.kida.home.dao.UpdatedDAO">
+   <!-- 查询最近一次的更新 -->
+   <select id="queryLastestDayUpdate" resultType="com.kida.home.bean.Updated">
+   		SELECT B.UPDATED_ID AS updatedId,
+   				B.UPDATED_INFO AS updateInfo,
+   				B.CREATE_TIME AS createTime 
+   		FROM UPDATED B 
+   		WHERE B.CREATE_TIME = (
+			SELECT I.CREATE_TIME 
+			FROM(
+				SELECT A.UPDATED_ID,A.UPDATED_INFO,A.CREATE_TIME 
+				FROM UPDATED A 
+				ORDER BY A.CREATE_TIME DESC
+			) I
+		LIMIT 0,1
+		)
+		ORDER BY B.UPDATED_ID ASC
+   </select>
+   
+   <select id="queryNextDay" resultType="com.kida.home.bean.Updated">
+   		SELECT B.UPDATED_ID AS updatedId,
+   				B.UPDATED_INFO AS updateInfo,
+   				B.CREATE_TIME AS createTime 
+   		FROM UPDATED B 
+   		WHERE B.CREATE_TIME = (
+			SELECT I.CREATE_TIME 
+			FROM(
+				SELECT A.UPDATED_ID,A.UPDATED_INFO,A.CREATE_TIME 
+				FROM UPDATED A 
+				WHERE A.CREATE_TIME <![CDATA[<]]> #{oldDay,jdbcType=VARCHAR}
+				ORDER BY A.CREATE_TIME DESC
+			) I
+		LIMIT 0,1
+		)
+		ORDER BY B.UPDATED_ID ASC
+   </select>
+   
+   <insert id="insertUpdated">
+   		INSERT INTO UPDATED 
+   		VALUES(#{updated.updatedId,jdbcType=VARCHAR},
+   				#{updated.updateInfo,jdbcType=VARCHAR},
+   				#{updated.createTime,jdbcType=TIMESTAMP})
+   </insert>
+</mapper>

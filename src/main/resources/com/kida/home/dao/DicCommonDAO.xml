@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.kida.home.dao.DicCommonDAO">
+   <!-- 通过分类id查询字典表 -->
+   <select id="queryDicCommonByGroupId" resultType="com.kida.home.bean.DicCommon">
+		SELECT M.DIC_ID AS DICID,M.GROUP_ID AS GROUPID,M.CODE,M.COMMENT
+		FROM DIC_COMMON M
+		WHERE M.GROUP_ID = #{groupId,jdbcType=VARCHAR}
+   </select>
+   
+   <select id="queryDicCommonByGroupIdAndCode" resultType="com.kida.home.bean.DicCommon">
+   		SELECT M.DIC_ID AS DICID,M.GROUP_ID AS GROUPID,M.CODE,M.COMMENT
+		FROM DIC_COMMON M
+		WHERE M.GROUP_ID = #{groupId,jdbcType=VARCHAR} AND M.CODE = #{code,jdbcType=VARCHAR}
+   </select>
+  
+  <insert id="saveDicCommon">
+  		REPLACE INTO DIC_COMMON (
+	   	DIC_ID,
+	   	GROUP_ID,
+	   	CODE,
+	   	COMMENT
+	   	) 
+	   	VALUES (
+	   	#{dicCommon.dicId,jdbcType=VARCHAR},
+	   	#{dicCommon.groupId,jdbcType=VARCHAR},
+	   	#{dicCommon.code,jdbcType=VARCHAR},
+	   	#{dicCommon.comment,jdbcType=VARCHAR}
+	   	)
+  </insert>
+</mapper>

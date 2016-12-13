@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.kida.home.dao.ArticleLabelDAO">
+   <!-- 查询之后的一行信息 -->
+   <select id="queryArticleLabelByArticleId" resultType="com.kida.home.bean.ArticleLabel">
+		SELECT T.ARTICLE_ID,T.LABEL FROM ARTICLE_LABEL T WHERE T.ARTICLE_ID =  #{articleId,jdbcType=VARCHAR}
+   </select>
+   
+   <select id="queryArticleLabelByArticleIdAndLabel" resultType="com.kida.home.bean.ArticleLabel">
+   		SELECT T.ARTICLE_ID,T.LABEL FROM ARTICLE_LABEL T WHERE T.ARTICLE_ID = #{articleId,jdbcType=VARCHAR} AND T.LABEL = #{label,jdbcType=VARCHAR} 
+   </select>
+   
+   <!-- 插入或更新文章信息 -->
+   <insert id="saveArticleLabel">
+   REPLACE INTO ARTICLE_LABEL (
+   	ARTICLE_ID,
+   	LABEL
+   	) 
+   	VALUES (
+   	#{articleLabel.articleId,jdbcType=VARCHAR},
+   	#{articleLabel.label,jdbcType=VARCHAR}
+   	)
+   </insert>
+</mapper>

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.kida.home.dao.ArticleDAO">
+   <!-- 查询之后的一行信息 -->
+   <select id="queryNextRowArticle" resultType="com.kida.home.bean.vo.ArticleVO">
+		SELECT M.articleId,M.BRIEF,M.TITLE,M.DAYS,M.CATEGORY,M.SUMMARY,M.READCOUNT
+		FROM (
+			SELECT @rownum:=@rownum+1 AS ROWNUM,I.articleId,I.BRIEF,I.TITLE,I.DAYS,I.CATEGORY,I.SUMMARY,I.READCOUNT
+			FROM (SELECT @rownum:=0) R,(SELECT T.ARTICLE_ID AS articleId,
+												T.BRIEF,
+												T.TITLE,
+												TO_DAYS(NOW()) - TO_DAYS(T.CREATE_TIME) AS DAYS,
+												T.CATEGORY,
+												T.SUMMARY,
+												T.READ_COUNT AS READCOUNT
+				  						FROM ARTICLE T
+				  						ORDER BY T.CREATE_TIME DESC
+			  ) I 
+		)M
+		WHERE M.ROWNUM BETWEEN #{begin,jdbcType=INTEGER} AND #{end,jdbcType=INTEGER}
+   </select>
+   
+   <!-- 查询首页简要数据块内容 -->
+   <select id="queryArticle4Show" resultType="com.kida.home.bean.vo.ArticleVO">
+   		SELECT M.articleId,M.BRIEF,M.TITLE,M.DAYS,M.CATEGORY,M.SUMMARY,M.READCOUNT
+		FROM (
+			SELECT @rownum:=@rownum+1 AS ROWNUM,I.articleId,I.BRIEF,I.TITLE,I.DAYS,I.CATEGORY,I.SUMMARY,I.READCOUNT
+			FROM (SELECT @rownum:=0) R,(SELECT T.ARTICLE_ID AS articleId,
+												T.BRIEF,
+												T.TITLE,
+												TO_DAYS(NOW()) - TO_DAYS(T.CREATE_TIME) AS DAYS,
+												T.CATEGORY,
+												T.SUMMARY,
+												T.READ_COUNT AS READCOUNT
+				  						FROM ARTICLE T
+				  						ORDER BY T.CREATE_TIME DESC
+			  ) I 
+		)M
+		WHERE M.ROWNUM BETWEEN 0 AND #{showBlock,jdbcType=INTEGER}
+   </select>
+   
+   <!-- 按照种类查询缩略行 -->
+   <select id="queryCateArticleLine" resultType="com.kida.home.bean.vo.ArticleVO">
+   		SELECT I.articleId,I.TITLE,I.READCOUNT
+   		FROM (SELECT @rownum:=@rownum+1 AS ROWNUM,
+   					M.articleId,
+   					M.TITLE,
+   					M.READCOUNT
+   			 FROM(SELECT @rownum:=0) R,(SELECT T.ARTICLE_ID AS articleId,
+												T.TITLE,
+												T.READ_COUNT AS READCOUNT
+										FROM ARTICLE T
+										WHERE T.CATEGORY=#{cateType,jdbcType=VARCHAR}
+										ORDER BY T.CREATE_TIME DESC) M
+		) I
+   		WHERE I.ROWNUM BETWEEN 0 AND 5
+   </select>
+   
+   <!-- 根据id查询文章的详细信息 -->
+   <select id="queryArticleById" resultType="com.kida.home.bean.Article">
+   		SELECT T.ARTICLE_ID AS articleId,
+   				T.BRIEF,
+				T.TITLE,
+				T.CREATE_TIME AS createTime,
+				T.CATEGORY,
+				T.SUMMARY,
+				T.READ_COUNT AS READCOUNT
+		FROM ARTICLE T
+		WHERE T.ARTICLE_ID = #{id,jdbcType=VARCHAR}
+   </select>
+   
+   <!-- 根据类型查询文章 -->
+   <select id="queryArticleByCate" resultType="com.kida.home.bean.vo.ArticleVO">
+   		SELECT I.articleId,
+   				I.TITLE,
+   				I.BRIEF,
+   				I.DAYS,
+				I.CATEGORY,
+				I.SUMMARY,
+				I.READCOUNT
+   		FROM (SELECT @rownum:=@rownum+1 AS ROWNUM,
+   					M.articleId,
+   					M.TITLE,
+   					M.BRIEF,
+   					M.DAYS,
+					M.CATEGORY,
+					M.SUMMARY,
+					M.READCOUNT
+   			 FROM(SELECT @rownum:=0) R,(SELECT T.ARTICLE_ID AS articleId,
+												T.BRIEF,
+												T.TITLE,
+												TO_DAYS(NOW()) - TO_DAYS(T.CREATE_TIME) AS DAYS,
+												T.CATEGORY,
+												T.SUMMARY,
+												T.READ_COUNT AS READCOUNT
+										FROM ARTICLE T
+										WHERE T.CATEGORY=#{cateType,jdbcType=VARCHAR}
+										ORDER BY T.CREATE_TIME DESC) M
+		) I
+   		WHERE I.ROWNUM BETWEEN #{begin,jdbcType=INTEGER} AND #{end,jdbcType=INTEGER}
+   </select>
+   
+   <!-- 更新查阅次数 -->
+   <update id="updateArticleReadCount">
+   		UPDATE ARTICLE T
+   		SET T.READ_COUNT = T.READ_COUNT + 1
+   		WHERE T.ARTICLE_ID = #{articleId,jdbcType=VARCHAR}
+   </update>
+   
+   <!-- 插入或更新文章信息 -->
+   <insert id="saveArticle">
+   REPLACE INTO ARTICLE (
+   	ARTICLE_ID,
+   	TITLE,
+   	BRIEF,
+   	CREATE_TIME,
+   	CATEGORY,
+   	SUMMARY,
+   	READ_COUNT
+   	) 
+   	VALUES (
+   	#{article.articleId,jdbcType=VARCHAR},
+   	#{article.title,jdbcType=VARCHAR},
+   	#{article.brief,jdbcType=VARCHAR},
+   	#{article.createTime,jdbcType=TIMESTAMP},
+   	#{article.category,jdbcType=VARCHAR},
+   	#{article.summary,jdbcType=VARCHAR},
+   	#{article.readCount,jdbcType=INTEGER}
+   	)
+   </insert>
+   
+   <!-- 根据标题查询文章 -->
+   <select id="queryArticleByTitle" resultType="com.kida.home.bean.Article">
+   		SELECT T.ARTICLE_ID AS articleId,
+   				T.BRIEF,
+				T.TITLE,
+				T.CREATE_TIME AS createTime,
+				T.CATEGORY,
+				T.SUMMARY,
+				T.READ_COUNT AS READCOUNT
+		FROM ARTICLE T
+		WHERE T.TITLE = #{title,jdbcType=VARCHAR}
+   </select>
+   
+   <!-- 根据文章标签查询文章列表 -->
+   <select id="queryArticleByLabel" resultType="com.kida.home.bean.vo.ArticleVO">
+   		SELECT I.articleId,
+   				I.TITLE,
+   				I.BRIEF,
+   				I.DAYS,
+				I.CATEGORY,
+				I.SUMMARY,
+				I.READCOUNT
+   		FROM (SELECT @rownum:=@rownum+1 AS ROWNUM,
+   					M.articleId,
+   					M.TITLE,
+   					M.BRIEF,
+   					M.DAYS,
+					M.CATEGORY,
+					M.SUMMARY,
+					M.READCOUNT
+   			 FROM(SELECT @rownum:=0) R,(SELECT T.ARTICLE_ID AS articleId,
+												T.BRIEF,
+												T.TITLE,
+												TO_DAYS(NOW()) - TO_DAYS(T.CREATE_TIME) AS DAYS,
+												T.CATEGORY,
+												T.SUMMARY,
+												T.READ_COUNT AS READCOUNT
+										FROM ARTICLE T INNER JOIN 
+										(SELECT T1.ARTICLE_ID FROM ARTICLE_LABEL T1 WHERE T1.LABEL=#{keyword,jdbcType=VARCHAR}) AL ON T.ARTICLE_ID = AL.ARTICLE_ID
+										ORDER BY T.CREATE_TIME DESC) M
+		) I
+   		WHERE I.ROWNUM BETWEEN #{begin,jdbcType=INTEGER} AND #{end,jdbcType=INTEGER}
+   </select>
+</mapper>

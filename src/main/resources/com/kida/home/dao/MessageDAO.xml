@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.kida.home.dao.MessageDAO">
+  	<!-- 插入文章图片 -->
+  	<insert id="insertMessage">
+  		INSERT INTO MESSAGE VALUES(
+  		#{message.msgId,jdbcType=VARCHAR},
+  		#{message.msgCode,jdbcType=VARCHAR},
+  		#{message.msgInfo,jdbcType=VARCHAR},
+  		#{message.createTime,jdbcType=TIMESTAMP}
+  		)
+  	</insert>
+</mapper>

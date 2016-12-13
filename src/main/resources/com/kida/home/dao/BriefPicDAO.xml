@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.kida.home.dao.BriefPicDAO">
+   <!-- 根据文章id找到对应的图片 -->
+   <select id="queryBriefPicByArticleId" resultType="com.kida.home.bean.BriefPic">
+		SELECT M.PIC_ID AS picId,
+				M.ARTICLE_ID AS articleId,
+				M.PIC_PATH AS picPath,
+				M.SORT_ID AS sortId,
+				M.CUT_STATUS AS cutStatus 
+		FROM BRIEF_PIC M
+		WHERE M.ARTICLE_ID = #{articleId,jdbcType=VARCHAR}
+		ORDER BY M.SORT_ID ASC
+   </select>
+   
+   <!-- 根据文章id删除图片 -->
+  	<delete id="deleteBriefPicByArticleId">
+  		DELETE FROM BRIEF_PIC WHERE ARTICLE_ID = #{articleId,jdbcType=VARCHAR}
+  	</delete>
+  	
+  	<!-- 插入文章图片 -->
+  	<insert id="insertBriefPic">
+  		INSERT INTO BRIEF_PIC VALUES(
+  		#{briefPic.picId,jdbcType=VARCHAR},
+  		#{briefPic.articleId,jdbcType=VARCHAR},
+  		#{briefPic.picPath,jdbcType=VARCHAR},
+  		#{briefPic.sortId,jdbcType=INTEGER},
+  		#{briefPic.cutStatus,jdbcType=INTEGER}
+  		)
+  	</insert>
+  	
+  	<update id="updateBriefPic">
+  		UPDATE BRIEF_PIC
+  		SET PIC_PATH=#{briefPic.picPath,jdbcType=VARCHAR},CUT_STATUS=#{briefPic.cutStatus,jdbcType=INTEGER}
+  		WHERE PIC_ID = #{briefPic.picId,jdbcType=VARCHAR}
+  	</update>
+  	
+  	<select id="queryBriefPicByCutStatus" resultType="com.kida.home.bean.BriefPic">
+  		SELECT M.PIC_ID AS picId,
+				M.ARTICLE_ID AS articleId,
+				M.PIC_PATH AS picPath,
+				M.SORT_ID AS sortId,
+				M.CUT_STATUS AS cutStatus 
+		FROM BRIEF_PIC M
+		WHERE M.CUT_STATUS = #{cutStatus,jdbcType=INTEGER}
+		ORDER BY M.SORT_ID ASC
+  	</select>
+</mapper>
