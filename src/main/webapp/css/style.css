@@ -271,6 +271,44 @@ a.link:hover{
 	line-height: 1.4em;
 	margin:0;
 }
+
+.content div.rinfor{
+	border-top-right-radius:5px;
+	border-bottom-right-radius:5px;
+	position:absolute;
+	width: 80px; 
+	height: 50px; 
+	background-color: #6f879a;
+	transition: width 0.5s;
+	z-index:9999;
+	overflow:hidden;
+	color:#fff;
+}
+
+.content div.rinfor #intitle{
+	text-align: center;
+	margin:0 auto;
+	line-height:50px;
+	
+}
+
+.content div.rinfor ul{
+	margin:0;
+	padding-left:10px;
+}
+
+.content div.rinfor li{ 
+	width:300px; 
+	height:50px; 
+	line-height:43px; 
+	overflow:hidden;
+}  
+
+.content div.rinfor li a{ 
+	font-size:13px;
+	text-decoration:none;
+}  
+
 .integer {
 	background: #fff;
 	padding: 2em 1.3em;

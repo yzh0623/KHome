@@ -2,21 +2,13 @@ package com.kida.home.bean.reptile;
 
 public class LinkTypeData {
 	private int id;
-	/**
-	 * ���ӵĵ�ַ
-	 */
+
 	private String linkHref;
-	/**
-	 * ���ӵı���
-	 */
+
 	private String linkText;
-	/**
-	 * ժҪ
-	 */
+
 	private String summary;
-	/**
-	 * ����
-	 */
+
 	private String content;
 
 	public int getId() {

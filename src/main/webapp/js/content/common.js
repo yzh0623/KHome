@@ -22,6 +22,7 @@ function switchHeadType() {
 	$(window)
 			.scroll(
 					function() {
+						var urls;
 						var content = $("li a.active").attr("id");
 						if ($(window).scrollTop() + $(window).height() == $(
 								document).height()) {
@@ -29,16 +30,36 @@ function switchHeadType() {
 								showMoreAction();
 							} else if (content == 'logs'
 									|| content == 'experiment') {
-								var urls = "/KHome/article/categorylist/";
+								urls = "/KHome/article/categorylist/";
 								generateCategoryListByType(categoryType,
 										'button', urls);
 							} else if (content == 'update') {
 								showNextDay();
 							} else if (content == 'label') {
-								var urls = "/KHome/article/labelList/";
+								urls = "/KHome/article/labelList/";
 								generateCategoryListByType(labelType, 'button',
 										urls);
 							}
 						}
+
+						var bottom = $(window).scrollTop() + $(window).height()
+								- 223;
+						$("div.rinfor").animate({
+							"top" : bottom + "px"
+						}, 30);
 					})
+}
+
+// 点击后打开推送信息
+function chick2ShowRecommend() {
+	var width = parseInt($("div.rinfor").width());
+	if (width < 100) {
+		$("div.rinfor").css('width', 500);
+		$("#intitle").hide();
+		$("ul.list").show();
+	} else {
+		$("div.rinfor").css('width', 80);
+		$("#intitle").show();
+		$("ul.list").hide();
+	}
 }

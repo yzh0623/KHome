@@ -3,33 +3,17 @@ package com.kida.home.bean.reptile;
 import java.util.List;
 
 public class Rule {
-	/**
-	 * ����
-	 */
+
 	private String url;
 
-	/**
-	 * �����
-	 */
 	private String[] params;
-	/**
-	 * �����Ӧ��ֵ
-	 */
+
 	private List<String> values;
 
-	/**
-	 * �Է��ص�HTML����һ�ι������õı�ǩ����������type
-	 */
 	private String resultTagName;
 
-	/**
-	 * CLASS / ID / SELECTION ����resultTagName�����ͣ�Ĭ��ΪID
-	 */
 	private int type = ID;
 
-	/**
-	 * GET / POST ��������ͣ�Ĭ��GET
-	 */
 	private int requestMoethod = GET;
 
 	public final static int GET = 0;

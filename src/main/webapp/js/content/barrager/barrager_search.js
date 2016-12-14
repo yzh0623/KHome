@@ -1,4 +1,4 @@
-var danmuArray = new Array();
+//var danmuArray = new Array();
 
 // 发送弹幕
 function runDanmu() {
@@ -27,15 +27,25 @@ function crawlData() {
 		type : 'POST',
 		url : '/KHome/article/barragerMap',
 		cache : true,
+		async : false,
 		data : type,
 		dataType : "json",
 		contentType : "application/json",
 		success : function(resultData) {
 			if (null != resultData) {
 				var dmMap = resultData.danmuMap;
+				var libTmp = "";
 				for ( var key in dmMap) {
-					danmuArray.push(key + "@#@" + dmMap[key]);
+
+					var libVal = liblock.replace('${url}', dmMap[key]);
+					libVal = libVal.replace('${title}', key);
+					libTmp += libVal;
+
+					// danmuArray.push(key + "@#@" + dmMap[key]);
 				}
+				var ul = $(ulblock).append(libTmp);
+				$("div.rinfor").append(ul);
+
 			}
 		}
 	});
@@ -48,4 +58,21 @@ function initBarrager() {
 	runDanmu();
 	setInterval(runDanmu, 10000);
 
+}
+
+function moveJsonp() {
+	crawlData();
+	$("ul.list").hide();
+	setInterval('autoScroll(".rinfor")', 4000);
+}
+
+function autoScroll(obj) {
+	$(obj).find(".list").animate({
+		marginTop : "-45px"
+	}, 700, function() {
+		$(this).css({
+			"marginTop" : "1px",
+			"color" : "#fff"
+		}).find("li:first").appendTo(this);
+	})
 }
