@@ -18,10 +18,6 @@ public class MessageVO {
 	}
 
 	public void setMsgInfo(String msgInfo) {
-		/*
-		 * try { this.msgInfo = new String(msgInfo.getBytes("UTF-8"), "UTF-8");
-		 * } catch (Exception e) { e.printStackTrace(); }
-		 */
 		this.msgInfo = msgInfo;
 	}
 

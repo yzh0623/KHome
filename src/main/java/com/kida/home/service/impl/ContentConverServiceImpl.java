@@ -72,8 +72,8 @@ public class ContentConverServiceImpl implements ContentConverService {
 	/**
 	 * 静态全局变量
 	 */
-	private static String archivePath;// 归档路径
-	private static String imagePath;// 图片路径
+	private String archivePath;// 归档路径
+	private String imagePath;// 图片路径
 
 	/**
 	 * 定时器入口
@@ -125,7 +125,8 @@ public class ContentConverServiceImpl implements ContentConverService {
 	 * @param mvo
 	 * @return
 	 */
-	private MessageVO conventFileAndCreateImage(File[] fileArra, MessageVO mvo) {
+	private MessageVO conventFileAndCreateImage(File[] fileArra,
+			MessageVO mvo) {
 		String archiveDocPath = configProperty.getArchiveDocPath();
 
 		// 通过check4Dir来查找当前路径下是否存在文件夹，若没有则新建一个文件夹，并将路径返回到静态全局变量中
@@ -198,7 +199,7 @@ public class ContentConverServiceImpl implements ContentConverService {
 		String day = String.valueOf(now.get(Calendar.DAY_OF_MONTH));
 
 		// 加入日期拼接归档目录路径
-		StringBuffer todayPath = new StringBuffer("").append(path).append("/")
+		StringBuilder todayPath = new StringBuilder("").append(path).append("/")
 				.append(year).append("/").append(month).append("/").append(day);
 		return todayPath.toString();
 	}
@@ -211,9 +212,10 @@ public class ContentConverServiceImpl implements ContentConverService {
 	 * @return
 	 */
 	@Transactional(rollbackFor = Exception.class)
-	private MessageVO createImagesAndArchiveFiles(File[] fileArra, MessageVO mvo) {
-		String articleId = null;
-		Map<String, Object> paramMap = null;
+	public MessageVO createImagesAndArchiveFiles(File[] fileArra,
+			MessageVO mvo) {
+		String articleId;
+		Map<String, Object> paramMap;
 		// 遍历需要转换的文件
 		for (File file : fileArra) {
 			// 解析文档并保存数据到数据库中，最后返回文章id
@@ -293,7 +295,7 @@ public class ContentConverServiceImpl implements ContentConverService {
 
 			if (labels.length > 0) {
 				List<ArticleLabel> aLabelList = new ArrayList<ArticleLabel>();
-				ArticleLabel al = null;
+				ArticleLabel al;
 
 				for (String lStr : labels) {
 					al = articleLabelService
@@ -417,8 +419,8 @@ public class ContentConverServiceImpl implements ContentConverService {
 		try {
 			// 使用nio方式复制文件到指定目录
 			sourceCh = new FileInputStream(file.getAbsolutePath()).getChannel();
-			destCh = new FileOutputStream(archivePath + File.separator
-					+ file.getName()).getChannel();
+			destCh = new FileOutputStream(
+					archivePath + File.separator + file.getName()).getChannel();
 
 			MappedByteBuffer mbb = sourceCh.map(FileChannel.MapMode.READ_ONLY,
 					0, sourceCh.size());
@@ -434,12 +436,11 @@ public class ContentConverServiceImpl implements ContentConverService {
 					+ " Exception: " + e.getStackTrace());
 		} finally {
 			try {
-				if (null != sourceCh) {
+				if (null != sourceCh)
 					sourceCh.close();
-				}
-				if (null != destCh) {
+
+				if (null != destCh)
 					destCh.close();
-				}
 
 				Files.deleteIfExists(file.toPath());
 			} catch (Exception e) {
@@ -460,10 +461,11 @@ public class ContentConverServiceImpl implements ContentConverService {
 	@SuppressWarnings("unchecked")
 	private static void clean(final Object buffer) throws Exception {
 		AccessController.doPrivileged(new PrivilegedAction() {
+			@Override
 			public Object run() {
 				try {
-					Method getCleanerMethod = buffer.getClass().getMethod(
-							"cleaner", new Class[0]);
+					Method getCleanerMethod = buffer.getClass()
+							.getMethod("cleaner", new Class[0]);
 					getCleanerMethod.setAccessible(true);
 					sun.misc.Cleaner cleaner = (sun.misc.Cleaner) getCleanerMethod
 							.invoke(buffer, new Object[0]);

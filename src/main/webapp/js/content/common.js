@@ -63,3 +63,11 @@ function chick2ShowRecommend() {
 		$("ul.list").hide();
 	}
 }
+
+function stopBubble(e) { 
+	if (e && e.stopPropagation) {//非IE浏览器 
+	　　e.stopPropagation(); 
+	} else {//IE浏览器 
+		window.event.cancelBubble = true; 
+	}
+}

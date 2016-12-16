@@ -1,6 +1,6 @@
 package com.kida.home.service;
 
-
+@FunctionalInterface
 public interface ContentConverService {
 
 	/**

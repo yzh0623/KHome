@@ -2,6 +2,7 @@ package com.kida.home.service;
 
 import com.kida.home.bean.Message;
 
+@FunctionalInterface
 public interface MessageService {
 
 	/**

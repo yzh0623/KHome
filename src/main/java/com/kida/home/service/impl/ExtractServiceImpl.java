@@ -1,6 +1,7 @@
 package com.kida.home.service.impl;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.kida.home.bean.reptile.LinkTypeData;
@@ -23,6 +26,9 @@ import com.kida.home.util.properties.ReptileProperty;
 @Service
 public class ExtractServiceImpl implements ExtractService {
 
+	private static final Logger logger = LoggerFactory
+			.getLogger(ExtractServiceImpl.class);
+
 	@Resource(name = "reptileProperty")
 	private ReptileProperty reptileProperty;
 
@@ -32,6 +38,7 @@ public class ExtractServiceImpl implements ExtractService {
 	 * @param rule
 	 * @return
 	 */
+	@Override
 	public List<LinkTypeData> extract(Rule rule) {
 
 		List<LinkTypeData> datas = new ArrayList<>();
@@ -55,14 +62,11 @@ public class ExtractServiceImpl implements ExtractService {
 				}
 			}
 
-			Document doc = null;
-			switch (requestType) {
-			case Rule.GET:
+			Document doc;
+			if (requestType == Rule.GET) {
 				doc = conn.timeout(500000).get();
-				break;
-			case Rule.POST:
+			} else {
 				doc = conn.timeout(500000).post();
-				break;
 			}
 
 			Elements results = new Elements();
@@ -98,7 +102,7 @@ public class ExtractServiceImpl implements ExtractService {
 				}
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.info(Arrays.toString(e.getStackTrace()));
 		}
 		return datas;
 	}

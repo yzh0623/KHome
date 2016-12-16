@@ -2,12 +2,15 @@ package com.kida.home.aop;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.imageio.ImageIO;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.kida.home.bean.BriefPic;
@@ -18,13 +21,16 @@ import com.kida.home.util.image.ImageCutterUtils;
 //@Component
 public class ImageCutter2Fix {
 
+	private static final Logger logger = LoggerFactory
+			.getLogger(ImageCutter2Fix.class);
+
 	public static final String CutPointExec = "execution(* com.kida.home.service.impl.ContentConverServiceImpl.doIt(..))";
 
 	// 起始坐标，剪切大小
-	private static int x = 0;
-	private static int y = 165;
-	private static int width = 1075;
-	private static int height = 1531;
+	private int x = 0;
+	private int y = 165;
+	private int width = 1075;
+	private int height = 1531;
 
 	// 裁剪范围大小
 	private static final int clientWidth = 1075;
@@ -68,7 +74,7 @@ public class ImageCutter2Fix {
 			width = Double.valueOf(width * widthRatio).intValue();
 			height = Double.valueOf(height * heightRatio).intValue();
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.debug(Arrays.toString(e.getStackTrace()));
 		}
 	}
 }

@@ -117,10 +117,8 @@ public class ArticleController {
 	@Produces(MediaType.APPLICATION_JSON)
 	public String detailInfo(String id) {
 		Map<String, Object> reMap = new HashMap<String, Object>();
-		// Article article = articleService.queryArticleById(id);
 		List<BriefPicVO> briefPicVOList = briefPicService
 				.queryBriefPicVOByArticleId(id);
-		// reMap.put("article", article);
 		reMap.put("briefPicVOList", briefPicVOList);
 		return CommonUtils.callJsonBack("reMap", reMap);
 	}
@@ -139,8 +137,8 @@ public class ArticleController {
 	@Produces(MediaType.APPLICATION_JSON)
 	public String categoryList(@PathParam("cateType") String cateType,
 			@PathParam("nowLocation") String nowLocation) {
-		List<ArticleVO> articleLIst = articleService.queryArticleByCate(
-				cateType, nowLocation);
+		List<ArticleVO> articleLIst = articleService
+				.queryArticleByCate(cateType, nowLocation);
 		return CommonUtils.callJsonBack("cateList", articleLIst);
 	}
 
@@ -155,8 +153,8 @@ public class ArticleController {
 	@Produces(MediaType.APPLICATION_JSON)
 	public String labelList(@PathParam("keyword") String keyword,
 			@PathParam("nowLocation") String nowLocation) {
-		List<ArticleVO> articleLIst = articleService.queryArticleByLabel(
-				keyword, nowLocation);
+		List<ArticleVO> articleLIst = articleService
+				.queryArticleByLabel(keyword, nowLocation);
 		return CommonUtils.callJsonBack("cateList", articleLIst);
 	}
 
