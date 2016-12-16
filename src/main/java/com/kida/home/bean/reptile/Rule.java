@@ -23,6 +23,9 @@ public class Rule {
 	public final static int ID = 1;
 	public final static int SELECTION = 2;
 
+	public Rule() {
+	}
+
 	public Rule(String url, String[] params, List<String> values,
 			String resultTagName, int type, int requestMoethod) {
 		super();

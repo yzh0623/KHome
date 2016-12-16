@@ -1,7 +1,5 @@
 package com.kida.home.util;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import com.alibaba.fastjson.JSONObject;
@@ -15,8 +13,9 @@ import com.alibaba.fastjson.JSONObject;
 @Component
 public class CommonUtils {
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(CommonUtils.class);
+	private CommonUtils() {
+
+	}
 
 	/**
 	 * 返回JSONString输出

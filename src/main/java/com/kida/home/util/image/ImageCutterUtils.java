@@ -14,6 +14,10 @@ import javax.imageio.stream.ImageInputStream;
 
 public class ImageCutterUtils {
 
+	private ImageCutterUtils() {
+
+	}
+
 	/**
 	 * 获取图片格式
 	 * 

@@ -1,5 +1,4 @@
-﻿
-// 初始化头部区域超链接（home除外）
+﻿// 初始化头部区域超链接（home除外）
 function initHeaderOtherAction() {
 	var aItems = $("div.banner a");
 	for (var i = 0; i < aItems.length; i++) {
@@ -46,10 +45,10 @@ function initHeaderHomeAction() {
 
 		// 清楚block块内容
 		var divItems = $("div.col-md-3 div.l_g_r");
-		for (var i = 0; i < divItems.length; i++) {
-			var classChild = divItems.eq(i).children().attr("class");
+		for (var j = 0; j < divItems.length; j++) {
+			var classChild = divItems.eq(j).children().attr("class");
 			if ("integer" == classChild) {
-				divItems.eq(i).remove();
+				divItems.eq(j).remove();
 			}
 		}
 
@@ -75,4 +74,3 @@ function headerOtherCategoryAction() {
 function headerUpdateAction() {
 	generateUpdateList();
 }
-

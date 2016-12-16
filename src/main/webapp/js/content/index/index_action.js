@@ -36,22 +36,28 @@ function showMoreAction() {
 				// 遍历块列表
 				for (var i = 0; i < blockList.length; i++) {
 					// 替换模板中需要动态变化的内容
-					blockContent = divcontent.replace('${title}', blockList[i].title);
-					blockContent = blockContent.replace('${summary}', blockList[i].summary);
-					blockContent = blockContent.replace('${articleId}', blockList[i].articleId);
-					blockContent = blockContent.replace('${category}', $("ul.cl-effect-15 li a#" + blockList[i].category.toLowerCase()).html());
-					blockContent = blockContent.replace('${days}', blockList[i].days);
-					blockContent = blockContent.replace('${readCount}', blockList[i].readCount);
+					blockContent = divcontent.replace('${title}',
+							blockList[i].title);
+					blockContent = blockContent.replace('${summary}',
+							blockList[i].summary);
+					blockContent = blockContent.replace('${articleId}',
+							blockList[i].articleId);
+					blockContent = blockContent.replace('${category}', $(
+							"ul.cl-effect-15 li a#"
+									+ blockList[i].category.toLowerCase())
+							.html());
+					blockContent = blockContent.replace('${days}',
+							blockList[i].days);
+					blockContent = blockContent.replace('${readCount}',
+							blockList[i].readCount);
 					$("div#other_row" + newrow).prepend(blockContent);
 				}
 
 				if (lengthInSide > -1 && lengthInSide < 3) {
 					var remain = Math.abs(lengthInSide - 3);
-					for (var i = 0; i < remain + 1; i++) {
+					for (var j = 0; j < remain + 1; j++) {
 						$("div#other_row" + newrow).append(divwithoutcontent);
 					}
-					// 若显示的块没有达到完整的显示，则屏蔽ShowMore按钮
-					// $("#ShowMore").hide();
 				} else {
 					$("div#other_row" + newrow).append(divwithoutcontent);
 				}

@@ -1,6 +1,5 @@
 // 打开详细页面方法
 function showDetailById(id) {
-	var imgJoin = "";
 	var imgVal = null;
 	var detailVal = "";
 

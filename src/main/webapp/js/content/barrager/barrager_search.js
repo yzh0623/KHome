@@ -1,3 +1,4 @@
+//var danmuArray = new Array();
 
 // 发送弹幕
 function runDanmu() {
@@ -40,6 +41,7 @@ function crawlData() {
 					libVal = libVal.replace('${title}', key);
 					libTmp += libVal;
 
+					// danmuArray.push(key + "@#@" + dmMap[key]);
 				}
 				var ul = $(ulblock).append(libTmp);
 				$("div.rinfor").append(ul);

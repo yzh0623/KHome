@@ -6,6 +6,10 @@ import com.aspose.words.License;
 
 public class AsposeWordLicense {
 
+	private AsposeWordLicense() {
+
+	}
+
 	public static boolean getLicense() {
 		boolean result = false;
 		try {
