@@ -2,6 +2,8 @@ var categoryType = null;
 var labelType = null;
 var blockContent = null;
 var counter = 0;
+var size_li = $("#myList li").size();
+var x = 3;
 
 // 隐藏地址栏
 function hideURLbar() {

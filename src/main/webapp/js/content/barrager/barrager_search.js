@@ -1,5 +1,3 @@
-//var danmuArray = new Array();
-
 // 发送弹幕
 function runDanmu() {
 	if (danmuArray.length > 0) {
@@ -36,12 +34,11 @@ function crawlData() {
 				var dmMap = resultData.danmuMap;
 				var libTmp = "";
 				for ( var key in dmMap) {
-
-					var libVal = liblock.replace('${url}', dmMap[key]);
-					libVal = libVal.replace('${title}', key);
-					libTmp += libVal;
-
-					// danmuArray.push(key + "@#@" + dmMap[key]);
+					if (dmMap.hasOwnProperty(key)) {
+						var libVal = liblock.replace('${url}', dmMap[key]);
+						libVal = libVal.replace('${title}', key);
+						libTmp += libVal;
+					}
 				}
 				var ul = $(ulblock).append(libTmp);
 				$("div.rinfor").append(ul);
@@ -51,18 +48,12 @@ function crawlData() {
 	});
 }
 
-function initBarrager() {
-	crawlData();
-	setInterval(crawlData, 500000);
-
-	runDanmu();
-	setInterval(runDanmu, 10000);
-
-}
-
 function moveJsonp() {
 	crawlData();
 	$("ul.list").hide();
+	$("div.rinfor").animate({
+		"top" : $(window).scrollTop() + $(window).height() - 223 + "px"
+	}, 30);
 	setInterval('autoScroll(".rinfor")', 4000);
 }
 

@@ -124,7 +124,7 @@ ul a:focus {
 i.fb {
 	width: 30px;
 	height: 32px;
-	background: url(../images/img-sprite.png)no-repeat -153px -6px;
+	background: url(../../images/img-sprite.png)no-repeat -153px -6px;
 	float: left;
 	vertical-align: middle;
 	transition: 0.5s all;
@@ -133,12 +133,12 @@ i.fb {
 	-moz-transition: 0.5s all;
 }
 i.fb:hover {
-	background: url(../images/img-sprite.png)no-repeat -153px -47px;
+	background: url(../../images/img-sprite.png)no-repeat -153px -47px;
 }
 i.twt{
 	width: 30px;
 	height: 32px;
-	background: url(../images/img-sprite.png)no-repeat -8px -40px;
+	background: url(../../images/img-sprite.png)no-repeat -8px -40px;
 	float: left;
 	vertical-align: middle;
 	transition: 0.5s all;
@@ -147,7 +147,7 @@ i.twt{
 	-moz-transition: 0.5s all;
 }
 i.twt:hover {
-	background: url(../images/img-sprite.png)no-repeat -49px -40px;
+	background: url(../../images/img-sprite.png)no-repeat -49px -40px;
 }
 /*--start-search--*/
 .search2 {
@@ -167,7 +167,7 @@ i.twt:hover {
 	width: 79.33%;
 }
 .search2 input[type="submit"] {
-	background: url('../images/sprit-1.png') no-repeat 0px -2px;
+	background: url('../../images/sprit-1.png') no-repeat 0px -2px;
 	padding: 6px 18px;
 	border: none;
 	cursor: pointer;
@@ -242,7 +242,7 @@ p.adm a:hover {
 	padding: 10px 0;
 }
 .link {
-	background: url(../images/arrow.png) no-repeat -1px 5px;
+	background: url(../../images/arrow.png) no-repeat -1px 5px;
 	display: inline-block;
 	padding: 0 0 0 13px;
 	line-height: 20px;
@@ -283,6 +283,10 @@ a.link:hover{
 	z-index:9999;
 	overflow:hidden;
 	color:#fff;
+	filter:alpha(opacity=80);  
+    -moz-opacity:0.8;  
+    -khtml-opacity: 0.8;  
+    opacity: 0.8;  
 }
 
 .content div.rinfor #intitle{
@@ -451,28 +455,28 @@ a.link:hover{
 i.ham {
 	width: 32px;
 	height: 32px;
-	background: url(../images/img-sprite.png)no-repeat -4px -2px;
+	background: url(../../images/img-sprite.png)no-repeat -4px -2px;
 	display: inline-block;
 	vertical-align: middle;
 }
 i.men{
 	width:32px;
 	height: 32px;
-	background: url(../images/img-sprite.png)no-repeat -40px 1px;
+	background: url(../../images/img-sprite.png)no-repeat -40px 1px;
 	display: inline-block;
 	vertical-align: middle;
 }
 i.app{
 	width: 32px;
 	height: 32px;
-	background: url(../images/img-sprite.png)no-repeat -78px 2px;
+	background: url(../../images/img-sprite.png)no-repeat -78px 2px;
 	display: inline-block;
 	vertical-align: middle;
 }
 i.lik {
 	width: 32px;
 	height: 32px;
-	background: url(../images/img-sprite.png)no-repeat -114px 0px;
+	background: url(../../images/img-sprite.png)no-repeat -114px 0px;
 	display: inline-block;
 	vertical-align: middle;
 }
@@ -682,7 +686,7 @@ div#portfoliolist {
 	top: -152px;
 	width: 290px;
 	height: 219px;
-	background: url(../images/zoom.png) center center no-repeat rgba(220, 142, 127, 0.58);
+	background: url(../../images/zoom.png) center center no-repeat rgba(220, 142, 127, 0.58);
 	cursor: pointer;
 	transition: all .2s ease-in-out;
 	-webkit-transition: all .2s ease-in-out;
@@ -1089,7 +1093,7 @@ ul.links li, ul.links_middle li, ul.links_bottom li {
 	width: 20px;
 	height: 20px;
 	display: inline-block;
-	background: url("../images/img-sprite1.png") no-repeat;
+	background: url("../../images/img-sprite1.png") no-repeat;
 	vertical-align: middle;
 	margin-right: 5px;
 }
@@ -1283,7 +1287,7 @@ ul.links li.last {
 	right: 2em;
 }
 .head-nav span.menu:before{
-	content:url(../images/menu.png);
+	content:url(../../images/menu.png);
 	color:#FFF;
 	font-size:1.3em;
 	text-transform:uppercase;

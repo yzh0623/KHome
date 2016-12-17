@@ -158,7 +158,8 @@ public class ExtractServiceImpl implements ExtractService {
 		List<LinkTypeData> extracts = extract(rule);
 
 		for (LinkTypeData data : extracts) {
-			if (data.getLinkHref().indexOf("http://") > -1) {
+			if (data.getLinkHref().indexOf("http://") > -1
+					&& data.getLinkText().length() <= 50) {
 				reMap.put(data.getLinkText(), data.getLinkHref());
 			}
 		}

@@ -54,7 +54,7 @@ function switchHeadType() {
 function chick2ShowRecommend() {
 	var width = parseInt($("div.rinfor").width());
 	if (width < 100) {
-		$("div.rinfor").css('width', 500);
+		$("div.rinfor").css('width', 300);
 		$("#intitle").hide();
 		$("ul.list").show();
 	} else {
@@ -65,9 +65,9 @@ function chick2ShowRecommend() {
 }
 
 function stopBubble(e) { 
-	if (e && e.stopPropagation) {//非IE浏览器 
+	if (e && e.stopPropagation) {// 非IE浏览器
 	　　e.stopPropagation(); 
-	} else {//IE浏览器 
+	} else {// IE浏览器
 		window.event.cancelBubble = true; 
 	}
 }
