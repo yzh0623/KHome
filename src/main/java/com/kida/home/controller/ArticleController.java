@@ -168,7 +168,8 @@ public class ArticleController {
 	@Path("/barragerMap")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String barragerMap(String type) {
-		Map<String, String> reMap = extractService.extWebArticle(type);
+		// Map<String, String> reMap = extractService.extWebArticle(type);
+		Map<String, String> reMap = extractService.extWebArticleInfo(type);
 		return CommonUtils.callJsonBack("danmuMap", reMap);
 	}
 

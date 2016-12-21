@@ -38,31 +38,31 @@ public class ExtractServiceImpl implements ExtractService {
 	 * @param rule
 	 * @return
 	 */
-	@Override
-	public List<LinkTypeData> extract(Rule rule) {
+	private List<LinkTypeData> extract(Rule rule) {
+		LinkTypeData data = null;
+		Document doc;
+
+		String url = rule.getUrl();
+		String[] params = rule.getParams();
+		String resultTagName = rule.getResultTagName();
+
+		List<String> values = rule.getValues();
+
+		int type = rule.getType();
+		int requestType = rule.getRequestMoethod();
 
 		List<LinkTypeData> datas = new ArrayList<>();
-		LinkTypeData data = null;
+
 		try {
 			// 验证输入规则
 			validateRule(rule);
-
-			String url = rule.getUrl();
-			String[] params = rule.getParams();
-			List<String> values = rule.getValues();
-			String resultTagName = rule.getResultTagName();
-			int type = rule.getType();
-			int requestType = rule.getRequestMoethod();
-
 			Connection conn = Jsoup.connect(url);
-
-			if (params != null) {
+			if (null != params) {
 				for (int i = 0; i < params.length; i++) {
 					conn.data(params[i], values.get(i));
 				}
 			}
 
-			Document doc;
 			if (requestType == Rule.GET) {
 				doc = conn.timeout(500000).get();
 			} else {
@@ -108,6 +108,77 @@ public class ExtractServiceImpl implements ExtractService {
 	}
 
 	/**
+	 * 获取文章内部信息
+	 * 
+	 * @param rule
+	 * @return
+	 */
+	private String extractContent(Rule rule) {
+		String text = "";
+		String url = rule.getUrl();
+		String resultTagName = rule.getResultTagName();
+
+		String[] params = rule.getParams();
+
+		List<String> values = rule.getValues();
+
+		int type = rule.getType();
+		int requestType = rule.getRequestMoethod();
+
+		Document doc;
+
+		try {
+			// 验证输入规则
+			validateRule(rule);
+			Connection conn = Jsoup.connect(url);
+			if (null != params) {
+				for (int i = 0; i < params.length; i++) {
+					conn.data(params[i], values.get(i));
+				}
+			}
+
+			if (requestType == Rule.GET) {
+				doc = conn.timeout(500000).get();
+			} else {
+				doc = conn.timeout(500000).post();
+			}
+
+			Elements results = new Elements();
+			switch (type) {
+			case Rule.CLASS:
+				results = doc.getElementsByClass(resultTagName);
+				break;
+			case Rule.ID:
+				Element result = doc.getElementById(resultTagName);
+				results.add(result);
+				break;
+			case Rule.SELECTION:
+				results = doc.select(resultTagName);
+				break;
+			default:
+				if (TextUtil.isEmpty(resultTagName)) {
+					results = doc.getElementsByTag("body");
+				}
+			}
+
+			for (Element result : results) {
+				Elements links = result.getAllElements();
+				for (int i = 0; i < links.size(); i++) {
+					if (0 != i) {
+						Element link = links.get(i);
+						if (!"".equals(link.ownText())) {
+							text += link.ownText() + "<br/>";
+						}
+					}
+				}
+			}
+		} catch (Exception e) {
+			logger.info(Arrays.toString(e.getStackTrace()));
+		}
+		return text;
+	}
+
+	/**
 	 * 验证规则信息
 	 * 
 	 * @throws Exception
@@ -120,11 +191,9 @@ public class ExtractServiceImpl implements ExtractService {
 		if (!url.startsWith("http://")) {
 			throw new Exception(reptileProperty.getVldHttp());
 		}
-
-		if (rule.getParams() != null && rule.getValues() != null) {
-			if (rule.getParams().length != rule.getValues().size()) {
-				throw new Exception(reptileProperty.getParam());
-			}
+		if (rule.getParams() != null && rule.getValues() != null
+				&& rule.getParams().length != rule.getValues().size()) {
+			throw new Exception(reptileProperty.getParam());
 		}
 	}
 
@@ -133,37 +202,88 @@ public class ExtractServiceImpl implements ExtractService {
 	 */
 	@Override
 	public Map<String, String> extWebArticle(String keyParam) {
-		Map<String, String> reMap = new HashMap<String, String>();
+		Map<String, String> reMap = new HashMap<>();
 
-		String url = reptileProperty.getUrl();
+		StringBuilder query = new StringBuilder("");
+
+		String url = reptileProperty.getBaseUrl()
+				+ reptileProperty.getSearchUrl();
 		String resultTag = reptileProperty.getResultTag();
 
 		String[] params = reptileProperty.getParam().split(",");
-
 		String[] keywords = reptileProperty.getKeyword().split(",");
-		String query = "";
+
+		List<String> keyList = new ArrayList<>();
+
 		for (String keys : keywords) {
-			query += keys + "+";
+			query.append(keys).append("+");
 		}
 		if (!keyParam.isEmpty()) {
-			query += keyParam;
+			query.append(keyParam);
 		} else {
-			query = query.substring(0, query.length() - 1);
+			query = new StringBuilder(query.substring(0, query.length() - 1));
 		}
-		List<String> keyList = new ArrayList<String>();
-		keyList.add(query);
-		keyList.add("blog");
+
+		keyList.add(query.toString());
 
 		Rule rule = new Rule(url, params, keyList, resultTag, 0, Rule.GET);
 		List<LinkTypeData> extracts = extract(rule);
 
 		for (LinkTypeData data : extracts) {
-			if (data.getLinkHref().indexOf("http://") > -1
-					&& data.getLinkText().length() <= 50) {
+			if (data.getLinkHref().indexOf("viewspace") > -1) {
 				reMap.put(data.getLinkText(), data.getLinkHref());
 			}
 		}
 		return reMap;
 	}
 
+	/**
+	 * 批量获取文章内容
+	 */
+	@Override
+	public Map<String, String> extWebArticleInfo(String keyParam) {
+		Map<String, String> reMap = new HashMap<>();
+
+		List<String> keyList = new ArrayList<>();
+
+		String content;
+		StringBuilder query = new StringBuilder("");
+		String url = reptileProperty.getBaseUrl();
+		String resultTagInfo = reptileProperty.getResultTagInfo();
+
+		String[] params = reptileProperty.getParam().split(",");
+		String[] keywords = reptileProperty.getKeyword().split(",");
+
+		Rule rule;
+
+		try {
+			for (String keys : keywords) {
+				query.append(keys).append("+");
+			}
+			if (!keyParam.isEmpty()) {
+				query.append(keyParam);
+			} else {
+				query = new StringBuilder(
+						query.substring(0, query.length() - 1));
+			}
+
+			keyList.add(query.toString());
+
+			Map<String, String> map = extWebArticle(keyParam);
+			if (!map.isEmpty()) {
+				for (Map.Entry<String, String> entry : map.entrySet()) {
+					rule = new Rule(url + entry.getValue(), params, keyList,
+							resultTagInfo, 0, Rule.GET);
+
+					content = extractContent(rule);
+					if (!"".equals(content)) {
+						reMap.put(entry.getKey(), content);
+					}
+				}
+			}
+		} catch (Exception e) {
+			logger.info(Arrays.toString(e.getStackTrace()));
+		}
+		return reMap;
+	}
 }

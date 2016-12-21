@@ -9,6 +9,12 @@ public class ReptileProperty {
 	@Value("#{reptile[url]}")
 	private String url;
 
+	@Value("#{reptile[baseUrl]}")
+	private String baseUrl;
+
+	@Value("#{reptile[searchUrl]}")
+	private String searchUrl;
+
 	@Value("#{reptile[param]}")
 	private String param;
 
@@ -27,12 +33,39 @@ public class ReptileProperty {
 	@Value("#{reptile[vldParam]}")
 	private String vldParam;
 
+	@Value("#{reptile[resultTagInfo]}")
+	private String resultTagInfo;
+
+	public String getResultTagInfo() {
+		return resultTagInfo;
+	}
+
+	public void setResultTagInfo(String resultTagInfo) {
+		this.resultTagInfo = resultTagInfo;
+	}
+
 	public String getVldUrlIsEmpty() {
 		return vldUrlIsEmpty;
 	}
 
 	public void setVldUrlIsEmpty(String vldUrlIsEmpty) {
 		this.vldUrlIsEmpty = vldUrlIsEmpty;
+	}
+
+	public String getBaseUrl() {
+		return baseUrl;
+	}
+
+	public void setBaseUrl(String baseUrl) {
+		this.baseUrl = baseUrl;
+	}
+
+	public String getSearchUrl() {
+		return searchUrl;
+	}
+
+	public void setSearchUrl(String searchUrl) {
+		this.searchUrl = searchUrl;
 	}
 
 	public String getVldHttp() {

@@ -289,11 +289,14 @@ a.link:hover{
     opacity: 0.8;  
 }
 
+.content div.rinfor::-webkit-scrollbar {
+  display: none
+}
+
 .content div.rinfor #intitle{
 	text-align: center;
 	margin:0 auto;
 	line-height:50px;
-	
 }
 
 .content div.rinfor ul{

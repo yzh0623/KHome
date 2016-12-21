@@ -15,10 +15,7 @@ function setupInfo(e) {
 
 // 滚动条下拉到最后自动加载
 function switchHeadType() {
-
-	/*
-	 * 监听滚动条，本来不想用jQuery但是发现js里面监听滚动条的事件不好添加，这边就引用了Jquery的$(obj).scroll();这个方法了
-	 */
+	// 监听滚动条，本来不想用jQuery但是发现js里面监听滚动条的事件不好添加，这边就引用了Jquery的$(obj).scroll();这个方法了
 	$(window)
 			.scroll(
 					function() {
@@ -43,7 +40,7 @@ function switchHeadType() {
 						}
 
 						var bottom = $(window).scrollTop() + $(window).height()
-								- 223;
+								- 387;
 						$("div.rinfor").animate({
 							"top" : bottom + "px"
 						}, 30);
@@ -54,13 +51,44 @@ function switchHeadType() {
 function chick2ShowRecommend() {
 	var width = parseInt($("div.rinfor").width());
 	if (width < 100) {
-		$("div.rinfor").css('width', 300);
+		
+		$("div.rinfor").animate({
+			 "width":"600",
+			 "height":"350"
+		}, 30);
+		
+		$("div.rinfor").css({
+			"position":"absolute",
+			"height":"600",
+			"overflow":"auto"
+		});
+		
 		$("#intitle").hide();
-		$("ul.list").show();
+		
+		var conTmp = "";
+		var titTmp = "";
+		var counter=0;
+		var i = parseInt(Math.random() * (Object.getOwnPropertyNames(dmMap).length), 10);
+		for ( var key in dmMap) {
+			if (dmMap.hasOwnProperty(key) && i == counter) {
+				conTmp = contentBlock
+						.replace('${conTitle}', dmMap[key]);
+				titTmp = titleBlock.replace('${newsTitle}', key);
+				break;
+			}
+			counter++;
+		}
+		$("div.rinfor").append(titTmp);
+		$("div.rinfor").append(conTmp);
+		
 	} else {
-		$("div.rinfor").css('width', 80);
+		$("div.rinfor").animate({
+			 "width":"80",
+			  "height":"50"
+		}, 30);
 		$("#intitle").show();
-		$("ul.list").hide();
+		$("div.newsTitle").remove();
+		$("div.conTitle").remove();
 	}
 }
 

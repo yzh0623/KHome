@@ -31,18 +31,19 @@ function crawlData() {
 		contentType : "application/json",
 		success : function(resultData) {
 			if (null != resultData) {
-				var dmMap = resultData.danmuMap;
-				var libTmp = "";
-				for ( var key in dmMap) {
-					if (dmMap.hasOwnProperty(key)) {
-						var libVal = liblock.replace('${url}', dmMap[key]);
-						libVal = libVal.replace('${title}', key);
-						libTmp += libVal;
-					}
-				}
-				var ul = $(ulblock).append(libTmp);
-				$("div.rinfor").append(ul);
-
+				dmMap = resultData.danmuMap;
+				// var conTmp = "";
+				// var titTmp = "";
+				// for ( var key in dmMap) {
+				// if (dmMap.hasOwnProperty(key)) {
+				// conTmp = contentBlock
+				// .replace('${conTitle}', dmMap[key]);
+				// titTmp = titleBlock.replace('${newsTitle}', key);
+				// break;
+				// }
+				// }
+				// $("div.rinfor").append(titTmp);
+				// $("div.rinfor").append(conTmp);
 			}
 		}
 	});
@@ -50,20 +51,9 @@ function crawlData() {
 
 function moveJsonp() {
 	crawlData();
-	$("ul.list").hide();
+	$("div.newsTitle").hide();
+	$("div.conTitle").hide();
 	$("div.rinfor").animate({
-		"top" : $(window).scrollTop() + $(window).height() - 223 + "px"
+		"top" : $(window).scrollTop() + $(window).height() - 387 + "px"
 	}, 30);
-	setInterval('autoScroll(".rinfor")', 4000);
-}
-
-function autoScroll(obj) {
-	$(obj).find(".list").animate({
-		marginTop : "-45px"
-	}, 700, function() {
-		$(this).css({
-			"marginTop" : "1px",
-			"color" : "#fff"
-		}).find("li:first").appendTo(this);
-	})
 }
