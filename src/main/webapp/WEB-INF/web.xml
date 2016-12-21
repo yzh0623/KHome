@@ -23,6 +23,11 @@
 	<listener>
 		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
 	</listener>
+	
+	<!-- javamelody配置信息 -->
+	<listener>
+	    <listener-class>net.bull.javamelody.SessionListener</listener-class>
+	</listener>
 	<!-- 监听器 end -->
 
 
@@ -63,10 +68,31 @@
 			<param-value>com.kida.home.controller</param-value>
 		</init-param>
 	</filter>
+	
+	<!-- javamelody -->
+	<filter>
+	    <filter-name>javamelody</filter-name>
+	    <filter-class>net.bull.javamelody.MonitoringFilter</filter-class>
+	    <init-param>
+	        <param-name>monitoring-path</param-name>
+	        <param-value>/monitor</param-value>
+	    </init-param>
+	    <init-param>
+	        <param-name>authorized-users</param-name>
+	        <param-value>kida:yuanzhenhui</param-value>
+	    </init-param>
+	</filter>
 
 	<filter-mapping>
 		<filter-name>jerseySpring</filter-name>
 		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<filter-mapping>
+	    <filter-name>javamelody</filter-name>
+	    <url-pattern>/*</url-pattern>
+	    <dispatcher>REQUEST</dispatcher>
+	    <dispatcher>ASYNC</dispatcher>
 	</filter-mapping>
 	<!-- 过滤器 end -->
 </web-app>

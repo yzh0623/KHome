@@ -217,10 +217,25 @@
 			<version>${log4j.version}</version>
 		</dependency>
 		
+		<!-- jsoup -->
 		<dependency>
 		    <groupId>org.jsoup</groupId>
 		    <artifactId>jsoup</artifactId>
 		    <version>${jsoup.version}</version>
+		</dependency>
+		
+		<!-- javamelody -->
+		<dependency>
+		    <groupId>net.bull.javamelody</groupId>
+		    <artifactId>javamelody-core</artifactId>
+		    <version>1.57.0</version>
+		</dependency>
+
+		<!-- jrobin -->
+		<dependency>
+		    <groupId>org.jrobin</groupId>
+		    <artifactId>jrobin</artifactId>
+		    <version>1.5.9</version>
 		</dependency>
 		
 	</dependencies>
