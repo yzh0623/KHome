@@ -1,6 +1,5 @@
 var categoryType = null;
 var labelType = null;
-var blockContent = null;
 var counter = 0;
 var size_li = $("#myList li").size();
 var x = 3;
@@ -12,7 +11,7 @@ function hideURLbar() {
 
 // home展开更多块信息
 function showMoreAction() {
-
+	var blockContent = null;
 	// 获取所有p标签是class=adm的节点
 	var divblocks = $("p.adm");
 	// 通过个数判断到最大的位置

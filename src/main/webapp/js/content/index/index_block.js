@@ -1,5 +1,3 @@
-
-
 // 初始化内容区域查询记录
 function initContentBlock() {
 	var blockContent = null;
@@ -65,14 +63,14 @@ function initContentBlock() {
 					if (lengthInSide > -1 && lengthInSide < 3) {
 						// 若块数不够第一行的时候需要填上空白信息到first_row
 						var firstRemain = Math.abs(lengthInSide - 3);
-						for (var i = 0; i < firstRemain; i++) {
+						for (var t = 0; t < firstRemain; t++) {
 							if (firstRemain == 3) {
 								$("div#first_row").prepend(divwithoutcontent);
 							} else {
 								$("div#first_row .integ").eq(2 - firstRemain)
 										.after(divwithoutcontent);
 							}
-							if (i == 0) {
+							if (t == 0) {
 								for (var z = 0; z < 3; z++) {
 									$("div#second_row").prepend(
 											divwithoutcontent);
@@ -84,15 +82,15 @@ function initContentBlock() {
 					} else if (lengthInSide > 2 && lengthInSide < 6) {
 						// 若块数不够第二行的时候需要填上空白信息到second_row
 						var secondRemain = Math.abs(lengthInSide - 6);
-						for (var i = 0; i < secondRemain; i++) {
+						for (var v = 0; v < secondRemain; v++) {
 							if (secondRemain == 3) {
 								$("div#second_row").prepend(divwithoutcontent);
 							} else {
 								$("div#second_row .integ").eq(2 - secondRemain)
 										.after(divwithoutcontent);
 							}
-							if (i == 0) {
-								for (var z = 0; z < 3; z++) {
+							if (v == 0) {
+								for (var u = 0; u < 3; u++) {
 									$("div#third_row").prepend(
 											divwithoutcontent);
 								}
@@ -101,7 +99,7 @@ function initContentBlock() {
 					} else if (lengthInSide > 5 && lengthInSide < 9) {
 						// 若块数不够第二行的时候需要填上空白信息到third_row
 						var thirdRemain = Math.abs(lengthInSide - 9);
-						for (var i = 0; i < thirdRemain; i++) {
+						for (var j = 0; j < thirdRemain; j++) {
 							if (thirdRemain == 3) {
 								$("div#third_row").prepend(divwithoutcontent);
 							} else {
@@ -114,7 +112,7 @@ function initContentBlock() {
 						var remains = 3 - (lengthInSide % 3);
 						// 若存在，则再计算定位层级
 						if (remains > 0 && remains < 3) {
-							for (var i = 0; i < remain; i++) {
+							for (var b = 0; b < remain; b++) {
 								$("div#other_row1").append(divwithoutcontent);
 							}
 						} else {

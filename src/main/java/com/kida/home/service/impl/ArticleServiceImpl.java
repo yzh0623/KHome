@@ -32,7 +32,7 @@ public class ArticleServiceImpl implements ArticleService {
 	@Override
 	public List<ArticleVO> queryNextRowArticle(String lastLocation) {
 		// 当前位置
-		int nowLocate = Integer.valueOf(lastLocation);
+		int nowLocate = Integer.parseInt(lastLocation);
 		// 下一行开始位置
 		int begin = nowLocate + 1;
 		// 下一行结束位置
@@ -44,7 +44,7 @@ public class ArticleServiceImpl implements ArticleService {
 	@Override
 	public List<ArticleVO> queryArticle4Show(String showNum) {
 		// 初始化显示区域块个数
-		int showBlock = Integer.valueOf(showNum);
+		int showBlock = Integer.parseInt(showNum);
 		return articleDAO.queryArticle4Show(showBlock);
 	}
 
@@ -68,7 +68,7 @@ public class ArticleServiceImpl implements ArticleService {
 			String nowLocation) {
 		String cateShow = configProperty.getCateShow();
 		// 分类列表中开始条数
-		int begin = Integer.valueOf(nowLocation);
+		int begin = Integer.parseInt(nowLocation);
 		// 结束条数
 		int end = begin + Integer.parseInt(cateShow);
 		// 查询区间
@@ -97,7 +97,7 @@ public class ArticleServiceImpl implements ArticleService {
 			String nowLocation) {
 		String cateShow = configProperty.getCateShow();
 		// 分类列表中开始条数
-		int begin = Integer.valueOf(nowLocation);
+		int begin = Integer.parseInt(nowLocation);
 		// 结束条数
 		int end = begin + Integer.parseInt(cateShow);
 		// 查询区间

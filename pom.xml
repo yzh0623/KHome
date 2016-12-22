@@ -26,6 +26,9 @@
 		<aspose-words.version>16.8.0</aspose-words.version>
 		<quartz.version>2.2.1</quartz.version>
 		<jsoup.version>1.10.1</jsoup.version>
+		<javamelody.version>1.57.0</javamelody.version>
+		<jrobin.version>1.5.9</jrobin.version>
+		<selenium.version>3.0.1</selenium.version>
 	</properties>
 	<dependencies>
 
@@ -228,15 +231,22 @@
 		<dependency>
 		    <groupId>net.bull.javamelody</groupId>
 		    <artifactId>javamelody-core</artifactId>
-		    <version>1.57.0</version>
+		    <version>${javamelody.version}</version>
 		</dependency>
 
 		<!-- jrobin -->
 		<dependency>
 		    <groupId>org.jrobin</groupId>
 		    <artifactId>jrobin</artifactId>
-		    <version>1.5.9</version>
+		    <version>${jrobin.version}</version>
 		</dependency>
+		
+		<!-- seleniumhq -->
+		<dependency>
+	        <groupId>org.seleniumhq.selenium</groupId>
+	        <artifactId>selenium-java</artifactId>
+	        <version>${selenium.version}</version>
+	    </dependency>
 		
 	</dependencies>
 

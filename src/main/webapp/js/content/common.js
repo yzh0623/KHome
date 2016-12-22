@@ -39,11 +39,8 @@ function switchHeadType() {
 							}
 						}
 
-						var bottom = $(window).scrollTop() + $(window).height()
-								- 387;
-						$("div.rinfor").animate({
-							"top" : bottom + "px"
-						}, 30);
+						var bottom = $(window).scrollTop() + $(window).height() - 387;
+						$("div.rinfor").animate({ "top" : bottom + "px" }, 30);
 					})
 }
 
@@ -55,13 +52,16 @@ function chick2ShowRecommend() {
 		$("div.rinfor").animate({
 			 "width":"600",
 			 "height":"350"
-		}, 30);
-		
-		$("div.rinfor").css({
-			"position":"absolute",
-			"height":"600",
-			"overflow":"auto"
+		}, 30,function(){
+			$("div.rinfor").css({
+				"position":"absolute",
+				"overflow-x":"hidden",
+				"overflow-y":"auto",
+				"overflow":" -moz-scrollbars-vertical"
+			});
 		});
+		
+		
 		
 		$("#intitle").hide();
 		
@@ -85,7 +85,12 @@ function chick2ShowRecommend() {
 		$("div.rinfor").animate({
 			 "width":"80",
 			  "height":"50"
-		}, 30);
+		}, 30,function(){
+			$("div.rinfor").css({
+				"position":"absolute",
+				"overflow":"hidden"
+			});
+		});
 		$("#intitle").show();
 		$("div.newsTitle").remove();
 		$("div.conTitle").remove();

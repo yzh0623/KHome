@@ -1,10 +1,8 @@
 // 初始化都为0行
 var newLine = 0;
-var categoryVal = null;
-var controls = null;
-
 // 通过类型查询列表
 function generateCategoryListByType(cateType, _control, urls) {
+	newLine = 0;
 	var bioDiv = $("div.biographys");
 	controls = _control;
 	// 若通过查看更多触发的，就数清楚div个数
@@ -55,6 +53,7 @@ function initHeadClick() {
 
 // cate整合
 function cate4Integrate(cateList) {
+	var categoryVal;
 	// 遍历分类列表
 	for (var i = 0; i < cateList.length; i++) {
 		categoryVal = category.replace('${title}', cateList[i].title);

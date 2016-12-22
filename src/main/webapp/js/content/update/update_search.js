@@ -1,4 +1,3 @@
-
 // 生成初始数据
 function generateUpdateList() {
 	var updateFixed = "<div class='det_text'>"
@@ -36,9 +35,6 @@ function ajax2Update() {
 
 // 展示上一次更新内容
 function showNextDay() {
-	var updateVal = "";
-	var updateInsideVal = "";
-
 	var oneDay = $("h2.oneday");
 	if (oneDay.length > 0) {
 		var oldDay = oneDay[oneDay.length - 1].innerHTML;
@@ -68,11 +64,10 @@ function update4Integrate(rdList) {
 	var udpateDyncOutside = "<div id='divinclude'><h2 class='oneday'>${days}</h2><ul class='days' style='text-align:left'>${setinfo}</ul></div>";
 	var udpateDyncInside = "<li class='change'>${info}</li>";
 	var rdSize = rdList.length;
-	var days = null;
 	if (rdSize > 0) {
 		for (var i = 0; i < rdSize; i++) {
 			if (i == 0) {
-				days = rdList[i].createTime;
+				var days = rdList[i].createTime;
 				var date = new Date(days);
 				var dateStr = date.getFullYear() + "-" + (date.getMonth() + 1)
 						+ "-" + date.getDate();

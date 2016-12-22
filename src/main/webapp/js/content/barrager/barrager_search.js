@@ -53,7 +53,10 @@ function moveJsonp() {
 	crawlData();
 	$("div.newsTitle").hide();
 	$("div.conTitle").hide();
+
+	var bottom = $(window).scrollTop() + $(window).height() - 387;
 	$("div.rinfor").animate({
-		"top" : $(window).scrollTop() + $(window).height() - 387 + "px"
+		"top" : bottom + "px"
 	}, 30);
+
 }

@@ -114,7 +114,7 @@ public class ExtractServiceImpl implements ExtractService {
 	 * @return
 	 */
 	private String extractContent(Rule rule) {
-		String text = "";
+		StringBuilder text = new StringBuilder("");
 		String url = rule.getUrl();
 		String resultTagName = rule.getResultTagName();
 
@@ -163,19 +163,17 @@ public class ExtractServiceImpl implements ExtractService {
 
 			for (Element result : results) {
 				Elements links = result.getAllElements();
-				for (int i = 0; i < links.size(); i++) {
-					if (0 != i) {
-						Element link = links.get(i);
-						if (!"".equals(link.ownText())) {
-							text += link.ownText() + "<br/>";
-						}
+				for (int i = 1; i < links.size(); i++) {
+					Element link = links.get(i);
+					if (!"".equals(link.ownText())) {
+						text.append(link.ownText()).append("<br/>");
 					}
 				}
 			}
 		} catch (Exception e) {
 			logger.info(Arrays.toString(e.getStackTrace()));
 		}
-		return text;
+		return text.toString();
 	}
 
 	/**
@@ -256,6 +254,8 @@ public class ExtractServiceImpl implements ExtractService {
 
 		Rule rule;
 
+		int counter = 0;
+
 		try {
 			for (String keys : keywords) {
 				query.append(keys).append("+");
@@ -272,12 +272,16 @@ public class ExtractServiceImpl implements ExtractService {
 			Map<String, String> map = extWebArticle(keyParam);
 			if (!map.isEmpty()) {
 				for (Map.Entry<String, String> entry : map.entrySet()) {
+					if (counter == 5) {
+						break;
+					}
 					rule = new Rule(url + entry.getValue(), params, keyList,
 							resultTagInfo, 0, Rule.GET);
 
 					content = extractContent(rule);
 					if (!"".equals(content)) {
 						reMap.put(entry.getKey(), content);
+						counter++;
 					}
 				}
 			}
