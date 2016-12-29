@@ -27,6 +27,17 @@ public class ConfigProperty {
 	@Value("#{config[imageUrl]}")
 	private String imageUrl;
 
+	@Value("#{config[extractFilePath]}")
+	private String extractFilePath;
+
+	public String getExtractFilePath() {
+		return extractFilePath;
+	}
+
+	public void setExtractFilePath(String extractFilePath) {
+		this.extractFilePath = extractFilePath;
+	}
+
 	public String getImageUrl() {
 		return imageUrl;
 	}

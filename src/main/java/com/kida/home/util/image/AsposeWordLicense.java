@@ -10,17 +10,11 @@ public class AsposeWordLicense {
 
 	}
 
-	public static boolean getLicense() {
-		boolean result = false;
-		try {
-			InputStream is = AsposeWordLicense.class.getClassLoader()
-					.getResourceAsStream("aspose/word/license/license.xml");
-			License aposeLic = new License();
-			aposeLic.setLicense(is);
-			result = true;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return result;
+	public static boolean getLicense() throws Exception {
+		InputStream is = AsposeWordLicense.class.getClassLoader()
+				.getResourceAsStream("aspose/word/license/license.xml");
+		License aposeLic = new License();
+		aposeLic.setLicense(is);
+		return true;
 	}
 }

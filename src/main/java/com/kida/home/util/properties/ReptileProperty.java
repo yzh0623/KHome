@@ -36,6 +36,17 @@ public class ReptileProperty {
 	@Value("#{reptile[resultTagInfo]}")
 	private String resultTagInfo;
 
+	@Value("#{reptile[timeerParam]}")
+	private String timeerParam;
+
+	public String getTimeerParam() {
+		return timeerParam;
+	}
+
+	public void setTimeerParam(String timeerParam) {
+		this.timeerParam = timeerParam;
+	}
+
 	public String getResultTagInfo() {
 		return resultTagInfo;
 	}

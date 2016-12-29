@@ -20,8 +20,8 @@ import com.kida.home.bean.vo.ArticleVO;
 import com.kida.home.bean.vo.BriefPicVO;
 import com.kida.home.service.ArticleService;
 import com.kida.home.service.BriefPicService;
-import com.kida.home.service.ExtractService;
 import com.kida.home.util.CommonUtils;
+import com.kida.home.util.FileIOUtils;
 import com.kida.home.util.properties.ConfigProperty;
 
 /**
@@ -42,7 +42,7 @@ public class ArticleController {
 	private BriefPicService briefPicService;
 
 	@Autowired
-	private ExtractService extractService;
+	private FileIOUtils fileIOUtils;
 
 	@Resource(name = "configProperty")
 	private ConfigProperty configProperty;
@@ -116,7 +116,7 @@ public class ArticleController {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public String detailInfo(String id) {
-		Map<String, Object> reMap = new HashMap<String, Object>();
+		Map<String, Object> reMap = new HashMap<>();
 		List<BriefPicVO> briefPicVOList = briefPicService
 				.queryBriefPicVOByArticleId(id);
 		reMap.put("briefPicVOList", briefPicVOList);
@@ -167,9 +167,8 @@ public class ArticleController {
 	@POST
 	@Path("/barragerMap")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String barragerMap(String type) {
-		// Map<String, String> reMap = extractService.extWebArticle(type);
-		Map<String, String> reMap = extractService.extWebArticleInfo(type);
+	public String barragerMap() {
+		Map<String, String> reMap = fileIOUtils.getExtractFileContent();
 		return CommonUtils.callJsonBack("danmuMap", reMap);
 	}
 

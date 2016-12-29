@@ -61,8 +61,6 @@ function update4Integrate(rdList) {
 	var updateVal = "";
 	var updateInsideVal = "";
 
-	var udpateDyncOutside = "<div id='divinclude'><h2 class='oneday'>${days}</h2><ul class='days' style='text-align:left'>${setinfo}</ul></div>";
-	var udpateDyncInside = "<li class='change'>${info}</li>";
 	var rdSize = rdList.length;
 	if (rdSize > 0) {
 		for (var i = 0; i < rdSize; i++) {

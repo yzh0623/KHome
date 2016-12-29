@@ -19,14 +19,12 @@ function runDanmu() {
 
 // 获取数据
 function crawlData() {
-	var type = typeArray[Math.floor(Math.random() * typeArray.length)];
 
 	$.ajax({
 		type : 'POST',
 		url : '/KHome/article/barragerMap',
 		cache : true,
 		async : false,
-		data : type,
 		dataType : "json",
 		contentType : "application/json",
 		success : function(resultData) {

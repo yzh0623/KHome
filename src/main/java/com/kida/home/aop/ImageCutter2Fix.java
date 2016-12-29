@@ -2,29 +2,32 @@ package com.kida.home.aop;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.imageio.ImageIO;
 
+import org.apache.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.kida.home.bean.BriefPic;
 import com.kida.home.service.BriefPicService;
 import com.kida.home.util.image.ImageCutterUtils;
 
-//@Aspect
-//@Component
+/**
+ * 专门针对转换图片后有水印的情况做的图片剪切工具（使用其他方法，因此已弃用）
+ * 
+ * @author kida
+ *
+ */
+// @Aspect
+// @Component
 public class ImageCutter2Fix {
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(ImageCutter2Fix.class);
+	private static final Logger LOG = Logger.getLogger(ImageCutter2Fix.class);
 
-	public static final String CutPointExec = "execution(* com.kida.home.service.impl.ContentConverServiceImpl.doIt(..))";
+	public static final String CUT_POINT_EXEC = "execution(* com.kida.home.service.impl.ContentConverServiceImpl.doIt(..))";
 
 	// 起始坐标，剪切大小
 	private int x = 0;
@@ -33,13 +36,13 @@ public class ImageCutter2Fix {
 	private int height = 1531;
 
 	// 裁剪范围大小
-	private static final int clientWidth = 1075;
-	private static final int clientHeight = 1721;
+	private static final int CLIENT_WIDTH = 1075;
+	private static final int CLIENT_HEIGHT = 1721;
 
 	@Autowired
 	private BriefPicService briefPicService;
 
-	@After(CutPointExec)
+	@After(CUT_POINT_EXEC)
 	public void fixTheImageAfterGenrate(JoinPoint joinPoint) {
 
 		List<BriefPic> bpList = briefPicService.queryBriefPicByCutStatus(0);
@@ -66,15 +69,15 @@ public class ImageCutter2Fix {
 			if (destWidth < width || destHeight < height)
 				throw new Exception("源图大小小于截取图片大小!");
 
-			double widthRatio = destWidth / clientWidth;
-			double heightRatio = destHeight / clientHeight;
+			double widthRatio = destWidth / CLIENT_WIDTH;
+			double heightRatio = destHeight / CLIENT_HEIGHT;
 
 			x = Double.valueOf(x * widthRatio).intValue();
 			y = Double.valueOf(y * heightRatio).intValue();
 			width = Double.valueOf(width * widthRatio).intValue();
 			height = Double.valueOf(height * heightRatio).intValue();
 		} catch (Exception e) {
-			logger.debug(Arrays.toString(e.getStackTrace()));
+			LOG.info(e.getStackTrace());
 		}
 	}
 }

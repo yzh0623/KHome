@@ -42,7 +42,7 @@ public class BriefPicServiceImpl implements BriefPicService {
 	@Override
 	public List<BriefPicVO> queryBriefPicVOByArticleId(String articleId) {
 		BriefPicVO briefPicVO;
-		List<BriefPicVO> briefPicVOList = new ArrayList<BriefPicVO>();
+		List<BriefPicVO> briefPicVOList = new ArrayList<>();
 
 		String imagePath = configProperty.getImagePath();
 		String imageUrl = configProperty.getImageUrl();

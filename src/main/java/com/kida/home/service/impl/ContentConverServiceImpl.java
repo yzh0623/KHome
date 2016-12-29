@@ -3,6 +3,7 @@ package com.kida.home.service.impl;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
@@ -443,7 +444,7 @@ public class ContentConverServiceImpl implements ContentConverService {
 					destCh.close();
 
 				Files.deleteIfExists(file.toPath());
-			} catch (Exception e) {
+			} catch (IOException e) {
 				mvo.setMsgCode("cannotCloseNIOStream");
 				mvo.setMsgInfo(statusProperty.getCannotCloseNIOStream()
 						+ " Exception: " + e.getStackTrace());

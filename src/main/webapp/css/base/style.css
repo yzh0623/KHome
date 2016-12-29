@@ -213,9 +213,8 @@ h2.oneday{
 
 li.change{
 	margin:5px 0;
+	text-align: left; 
 }
-
-
 
 p.adm {
 	color: #868f98;

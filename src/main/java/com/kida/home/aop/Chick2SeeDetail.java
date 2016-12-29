@@ -18,7 +18,7 @@ import com.kida.home.service.ArticleService;
 @Component
 public class Chick2SeeDetail {
 
-	public static final String CutPointExec = "execution(* com.kida.home.service.impl.ArticleServiceImpl.queryArticleById(..))";
+	public static final String CUT_POINT_EXEC = "execution(* com.kida.home.service.impl.BriefPicServiceImpl.queryBriefPicVOByArticleId(..))";
 
 	@Autowired
 	private ArticleService articleService;
@@ -28,7 +28,7 @@ public class Chick2SeeDetail {
 	 * 
 	 * @param joinPoint
 	 */
-	@After(CutPointExec)
+	@After(CUT_POINT_EXEC)
 	public void queryArticleAfter(JoinPoint joinPoint) {
 		Object[] args = joinPoint.getArgs();
 		String articleId = String.valueOf(args[0]);
