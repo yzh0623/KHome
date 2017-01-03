@@ -30,18 +30,6 @@ function crawlData() {
 		success : function(resultData) {
 			if (null != resultData) {
 				dmMap = resultData.danmuMap;
-				// var conTmp = "";
-				// var titTmp = "";
-				// for ( var key in dmMap) {
-				// if (dmMap.hasOwnProperty(key)) {
-				// conTmp = contentBlock
-				// .replace('${conTitle}', dmMap[key]);
-				// titTmp = titleBlock.replace('${newsTitle}', key);
-				// break;
-				// }
-				// }
-				// $("div.rinfor").append(titTmp);
-				// $("div.rinfor").append(conTmp);
 			}
 		}
 	});
