@@ -41,7 +41,7 @@ public class PublicTimers {
 	/**
 	 * 每天凌晨3点获取爬虫数据
 	 */
-	@Scheduled(cron = "0 18 11 * * ?")
+	@Scheduled(cron = "0 00 3 * * ?")
 	public void doExtract() {
 		String type = reptileProperty.getTimeerParam();
 		Map<String, String> paramMap = extractService.extWebArticleInfo(type);
