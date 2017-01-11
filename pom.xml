@@ -23,7 +23,7 @@
 		<jstl.version>1.2</jstl.version>
 		<junit.version>4.11</junit.version>
 		<javaee-api.version>7.0</javaee-api.version>
-		<aspose-words.version>16.8.0</aspose-words.version>
+		<aspose-words.version>14.9.0</aspose-words.version>
 		<quartz.version>2.2.1</quartz.version>
 		<jsoup.version>1.10.1</jsoup.version>
 		<javamelody.version>1.57.0</javamelody.version>
@@ -205,13 +205,13 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-		
+
 		<!-- Quartz framework -->
-        <dependency>
-            <groupId>org.quartz-scheduler</groupId>
-            <artifactId>quartz</artifactId>
-            <version>${quartz.version}</version>
-        </dependency>
+		<dependency>
+			<groupId>org.quartz-scheduler</groupId>
+			<artifactId>quartz</artifactId>
+			<version>${quartz.version}</version>
+		</dependency>
 
 		<!-- log4j -->
 		<dependency>
@@ -219,35 +219,43 @@
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>${log4j.version}</version>
 		</dependency>
-		
+
 		<!-- jsoup -->
 		<dependency>
-		    <groupId>org.jsoup</groupId>
-		    <artifactId>jsoup</artifactId>
-		    <version>${jsoup.version}</version>
+			<groupId>org.jsoup</groupId>
+			<artifactId>jsoup</artifactId>
+			<version>${jsoup.version}</version>
 		</dependency>
-		
+
 		<!-- javamelody -->
 		<dependency>
-		    <groupId>net.bull.javamelody</groupId>
-		    <artifactId>javamelody-core</artifactId>
-		    <version>${javamelody.version}</version>
+			<groupId>net.bull.javamelody</groupId>
+			<artifactId>javamelody-core</artifactId>
+			<version>${javamelody.version}</version>
 		</dependency>
 
 		<!-- jrobin -->
 		<dependency>
-		    <groupId>org.jrobin</groupId>
-		    <artifactId>jrobin</artifactId>
-		    <version>${jrobin.version}</version>
+			<groupId>org.jrobin</groupId>
+			<artifactId>jrobin</artifactId>
+			<version>${jrobin.version}</version>
 		</dependency>
-		
+
 		<!-- seleniumhq -->
 		<dependency>
-	        <groupId>org.seleniumhq.selenium</groupId>
-	        <artifactId>selenium-java</artifactId>
-	        <version>${selenium.version}</version>
-	    </dependency>
-		
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-java</artifactId>
+			<version>${selenium.version}</version>
+		</dependency>
+
+		<!-- aspose words -->
+		<dependency>
+			<groupId>com.aspose</groupId>
+			<artifactId>aspose-words</artifactId>
+			<version>${aspose-words.version}</version>
+			<classifier>jdk16</classifier>
+		</dependency>
+
 	</dependencies>
 
 	<!-- package -->
@@ -267,6 +275,14 @@
 				<configuration>
 					<version>3.1</version>
 					<failOnMissingWebXml>false</failOnMissingWebXml>
+				</configuration>
+			</plugin>
+			<plugin>
+				<inherited>true</inherited>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<skip>true</skip><!-- 跳过测试 -->
 				</configuration>
 			</plugin>
 		</plugins>
