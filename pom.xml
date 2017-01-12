@@ -233,6 +233,10 @@
 					<artifactId>spring-test</artifactId>
 					<groupId>org.springframework</groupId>
 				</exclusion>
+				<exclusion>
+					<groupId>javax.ws.rs</groupId>
+					<artifactId>jsr311-api</artifactId>
+				</exclusion>
 			</exclusions>
 		</dependency>
 
