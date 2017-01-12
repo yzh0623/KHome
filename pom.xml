@@ -53,45 +53,21 @@
 			<groupId>org.glassfish.jersey.ext</groupId>
 			<artifactId>jersey-spring3</artifactId>
 			<version>${jersey.version}</version>
-			<exclusions>
-				<exclusion>
-					<groupId>javax.ws.rs</groupId>
-					<artifactId>javax.ws.rs-api</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.glassfish.jersey.media</groupId>
 			<artifactId>jersey-media-json-jackson</artifactId>
 			<version>${jersey.version}</version>
-			<exclusions>
-				<exclusion>
-					<groupId>javax.ws.rs</groupId>
-					<artifactId>javax.ws.rs-api</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.glassfish.jersey.ext</groupId>
 			<artifactId>jersey-mvc</artifactId>
 			<version>${jersey.version}</version>
-			<exclusions>
-				<exclusion>
-					<groupId>javax.ws.rs</groupId>
-					<artifactId>javax.ws.rs-api</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.glassfish.jersey.core</groupId>
 			<artifactId>jersey-client</artifactId>
 			<version>${jersey.version}</version>
-			<exclusions>
-				<exclusion>
-					<groupId>javax.ws.rs</groupId>
-					<artifactId>javax.ws.rs-api</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 
 		<!--servlet -->
@@ -195,12 +171,6 @@
 			<groupId>org.glassfish.jersey.bundles</groupId>
 			<artifactId>jaxrs-ri</artifactId>
 			<version>${jaxrs-ri.version}</version>
-			<exclusions>
-				<exclusion>
-					<groupId>javax.ws.rs</groupId>
-					<artifactId>javax.ws.rs-api</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 
 		<!-- jersey-spring -->
@@ -232,10 +202,6 @@
 				<exclusion>
 					<artifactId>spring-test</artifactId>
 					<groupId>org.springframework</groupId>
-				</exclusion>
-				<exclusion>
-					<groupId>javax.ws.rs</groupId>
-					<artifactId>jsr311-api</artifactId>
 				</exclusion>
 			</exclusions>
 		</dependency>
