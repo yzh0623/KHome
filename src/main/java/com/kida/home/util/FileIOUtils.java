@@ -59,7 +59,6 @@ public class FileIOUtils {
 				}
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
 			LOG.info(e.getStackTrace());
 		}
 	}

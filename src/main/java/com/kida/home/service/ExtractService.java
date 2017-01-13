@@ -5,6 +5,11 @@ import java.util.Map;
 public interface ExtractService {
 
 	/**
+	 * 初始化时执行
+	 */
+	public void init2Extract();
+
+	/**
 	 * 调用爬取文章信息
 	 * 
 	 * @return

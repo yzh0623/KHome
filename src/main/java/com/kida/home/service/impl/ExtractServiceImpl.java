@@ -14,11 +14,13 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kida.home.bean.reptile.LinkTypeData;
 import com.kida.home.bean.reptile.Rule;
 import com.kida.home.service.ExtractService;
+import com.kida.home.util.FileIOUtils;
 import com.kida.home.util.properties.ReptileProperty;
 
 @Service
@@ -29,6 +31,9 @@ public class ExtractServiceImpl implements ExtractService {
 
 	@Resource(name = "reptileProperty")
 	private ReptileProperty reptileProperty;
+
+	@Autowired
+	private FileIOUtils fileIOUtils;
 
 	private String[] params = null;
 	private String[] keywords = null;
@@ -305,5 +310,12 @@ public class ExtractServiceImpl implements ExtractService {
 
 		paramList.add(query.toString());
 		return paramList;
+	}
+
+	@Override
+	public void init2Extract() {
+		String type = reptileProperty.getTimeerParam();
+		Map<String, String> paramMap = extWebArticleInfo(type);
+		fileIOUtils.generateFiles(paramMap);
 	}
 }

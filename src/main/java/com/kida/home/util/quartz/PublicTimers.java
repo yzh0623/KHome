@@ -1,7 +1,5 @@
 package com.kida.home.util.quartz;
 
-import java.util.Map;
-
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +8,6 @@ import org.springframework.stereotype.Component;
 
 import com.kida.home.service.ContentConverService;
 import com.kida.home.service.ExtractService;
-import com.kida.home.util.FileIOUtils;
 import com.kida.home.util.properties.ReptileProperty;
 
 @Component
@@ -21,9 +18,6 @@ public class PublicTimers {
 
 	@Autowired
 	private ExtractService extractService;
-
-	@Autowired
-	private FileIOUtils fileIOUtils;
 
 	@Resource(name = "reptileProperty")
 	private ReptileProperty reptileProperty;
@@ -43,8 +37,6 @@ public class PublicTimers {
 	 */
 	@Scheduled(cron = "0 00 3 * * ?")
 	public void doExtract() {
-		String type = reptileProperty.getTimeerParam();
-		Map<String, String> paramMap = extractService.extWebArticleInfo(type);
-		fileIOUtils.generateFiles(paramMap);
+		extractService.init2Extract();
 	}
 }
