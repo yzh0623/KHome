@@ -116,6 +116,7 @@ function title4Search() {
 			dataType : "json", // 后台返回值类型
 			contentType : "application/json",
 			success : function(resultData) {
+				$("ul.cl-effect-15 li a").removeClass("active");
 				controls = "header";
 				newLine = 0;
 				var cateList = resultData.cateList;
