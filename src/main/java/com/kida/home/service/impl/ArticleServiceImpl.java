@@ -76,6 +76,11 @@ public class ArticleServiceImpl implements ArticleService {
 	}
 
 	@Override
+	public List<ArticleVO> queryArticleByCate(String keyWord) {
+		return articleDAO.queryArticleByCate4Search(keyWord);
+	}
+
+	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public void updateArticleReadCount(String articleId) {
 		articleDAO.updateArticleReadCount(articleId);

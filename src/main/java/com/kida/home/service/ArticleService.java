@@ -65,6 +65,14 @@ public interface ArticleService {
 			String nowLocation);
 
 	/**
+	 * 单字段模糊查询
+	 * 
+	 * @param keyWord
+	 * @return
+	 */
+	public List<ArticleVO> queryArticleByCate(String keyWord);
+
+	/**
 	 * 更新当前查阅次数
 	 * 
 	 * @param articleId

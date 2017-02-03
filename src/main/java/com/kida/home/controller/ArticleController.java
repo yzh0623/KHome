@@ -142,6 +142,15 @@ public class ArticleController {
 		return CommonUtils.callJsonBack("cateList", articleLIst);
 	}
 
+	@POST
+	@Path("/categoryList4Search/{keyWord}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String categoryList4Search(@PathParam("keyWord") String keyWord) {
+		List<ArticleVO> articleLIst = articleService
+				.queryArticleByCate(keyWord.toUpperCase());
+		return CommonUtils.callJsonBack("cateList", articleLIst);
+	}
+
 	/**
 	 * 标签列表
 	 * 

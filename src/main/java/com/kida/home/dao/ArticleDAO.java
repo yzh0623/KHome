@@ -67,6 +67,15 @@ public interface ArticleDAO {
 			@Param("begin") int begin, @Param("end") int end);
 
 	/**
+	 * 模糊查询文章列表
+	 * 
+	 * @param keyWord
+	 *            关键字
+	 * @return
+	 */
+	List<ArticleVO> queryArticleByCate4Search(@Param("keyWord") String keyWord);
+
+	/**
 	 * 更新当前查阅次数
 	 * 
 	 * @param articleId

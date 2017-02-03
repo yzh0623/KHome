@@ -102,6 +102,37 @@
    		WHERE I.ROWNUM BETWEEN #{begin,jdbcType=INTEGER} AND #{end,jdbcType=INTEGER}
    </select>
    
+   <!-- 查询文章列表 -->
+   <select id="queryArticleByCate4Search" resultType="com.kida.home.bean.vo.ArticleVO">
+   		SELECT I.articleId,
+   				I.TITLE,
+   				I.BRIEF,
+   				I.DAYS,
+				I.CATEGORY,
+				I.SUMMARY,
+				I.READCOUNT
+   		FROM (SELECT @rownum:=@rownum+1 AS ROWNUM,
+   					M.articleId,
+   					M.TITLE,
+   					M.BRIEF,
+   					M.DAYS,
+					M.CATEGORY,
+					M.SUMMARY,
+					M.READCOUNT
+   			 FROM(SELECT @rownum:=0) R,(SELECT T.ARTICLE_ID AS articleId,
+												T.BRIEF,
+												T.TITLE,
+												TO_DAYS(NOW()) - TO_DAYS(T.CREATE_TIME) AS DAYS,
+												T.CATEGORY,
+												T.SUMMARY,
+												T.READ_COUNT AS READCOUNT
+										FROM ARTICLE T
+										WHERE T.TITLE LIKE CONCAT('%',#{keyWord,jdbcType=VARCHAR},'%') OR T.SUMMARY LIKE CONCAT('%',#{keyWord,jdbcType=VARCHAR},'%')
+										ORDER BY T.CREATE_TIME DESC) M
+		) I
+   </select>
+   
+   
    <!-- 更新查阅次数 -->
    <update id="updateArticleReadCount">
    		UPDATE ARTICLE T

@@ -25,18 +25,23 @@ function ajax2Search(cateUrl) {
 		dataType : "json", // 后台返回值类型
 		contentType : "application/json",
 		success : function(resultData) {
-			// 若点击头部初始化
-			if (newLine == 0) {
-				initHeadClick();
-			}
-
-			var cateList = resultData.cateList;
-			cate4Integrate(cateList);
-
-			// 初始化分类列表页面的超链接click事件
-			initRefAction("div.biography");
+			mkCate(resultData);
 		}
 	});
+}
+
+// 生成列表
+function mkCate(resultData) {
+	// 若点击头部初始化
+	if (newLine == 0) {
+		initHeadClick();
+	}
+
+	var cateList = resultData.cateList;
+	cate4Integrate(cateList);
+
+	// 初始化分类列表页面的超链接click事件
+	initRefAction("div.biography");
 }
 
 // 初始化头信息

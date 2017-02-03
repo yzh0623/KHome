@@ -102,3 +102,27 @@ function createLevelDiv() {
 	// 追加在ul后面
 	$("ul#myList").append(newLevel);
 }
+
+// 查询文章
+function title4Search() {
+	var searchInfo = $("#searchbox").val();
+	if (searchInfo.indexOf("文章检索...") < 0) {
+		var cateUrl = "/KHome/article/categoryList4Search/" + searchInfo
+		$.ajax({
+			type : 'POST',
+			url : cateUrl,
+			async : false,
+			cache : false,
+			dataType : "json", // 后台返回值类型
+			contentType : "application/json",
+			success : function(resultData) {
+				controls = "header";
+				newLine = 0;
+				var cateList = resultData.cateList;
+				if (cateList.length > 0) {
+					mkCate(resultData);
+				}
+			}
+		});
+	}
+}
