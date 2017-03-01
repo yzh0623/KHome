@@ -126,8 +126,7 @@ public class ContentConverServiceImpl implements ContentConverService {
 	 * @param mvo
 	 * @return
 	 */
-	private MessageVO conventFileAndCreateImage(File[] fileArra,
-			MessageVO mvo) {
+	private MessageVO conventFileAndCreateImage(File[] fileArra, MessageVO mvo) {
 		String archiveDocPath = configProperty.getArchiveDocPath();
 
 		// 通过check4Dir来查找当前路径下是否存在文件夹，若没有则新建一个文件夹，并将路径返回到静态全局变量中
@@ -177,8 +176,7 @@ public class ContentConverServiceImpl implements ContentConverService {
 			}
 		} catch (Exception e) {
 			mvo.setMsgCode("cannotCreateDir");
-			mvo.setMsgInfo(statusProperty.getCannotCreateDir() + " Exception: "
-					+ e.getStackTrace());
+			mvo.setMsgInfo(statusProperty.getCannotCreateDir() + " Exception: " + e.getStackTrace());
 		}
 
 		reMap.put("flag", flag);
@@ -200,8 +198,8 @@ public class ContentConverServiceImpl implements ContentConverService {
 		String day = String.valueOf(now.get(Calendar.DAY_OF_MONTH));
 
 		// 加入日期拼接归档目录路径
-		StringBuilder todayPath = new StringBuilder("").append(path).append("/")
-				.append(year).append("/").append(month).append("/").append(day);
+		StringBuilder todayPath = new StringBuilder("").append(path).append("/").append(year).append("/").append(month)
+				.append("/").append(day);
 		return todayPath.toString();
 	}
 
@@ -213,8 +211,7 @@ public class ContentConverServiceImpl implements ContentConverService {
 	 * @return
 	 */
 	@Transactional(rollbackFor = Exception.class)
-	public MessageVO createImagesAndArchiveFiles(File[] fileArra,
-			MessageVO mvo) {
+	public MessageVO createImagesAndArchiveFiles(File[] fileArra, MessageVO mvo) {
 		String articleId;
 		Map<String, Object> paramMap;
 		// 遍历需要转换的文件
@@ -253,14 +250,12 @@ public class ContentConverServiceImpl implements ContentConverService {
 		String[] parts = null;
 		String[] labels = null;
 
-		String title = file.getName().substring(0,
-				file.getName().lastIndexOf('.'));
+		String title = file.getName().substring(0, file.getName().lastIndexOf('.'));
 
 		try {
 			// 通过aspose-word获取doc文档的类型和摘要
 			Document doc = new Document(file.getAbsolutePath());
-			Node[] nodeArr = doc.getFirstSection().getBody().getChildNodes()
-					.toArray();
+			Node[] nodeArr = doc.getFirstSection().getBody().getChildNodes().toArray();
 			// 类型隐藏在标题后面，通过正则表达式获取类型
 			String txtStr = nodeArr[0].getText();
 			if (txtStr.indexOf("Evaluation Only") > -1) {
@@ -299,9 +294,7 @@ public class ContentConverServiceImpl implements ContentConverService {
 				ArticleLabel al;
 
 				for (String lStr : labels) {
-					al = articleLabelService
-							.queryArticleLabelByArticleIdAndLabel(articleId,
-									lStr);
+					al = articleLabelService.queryArticleLabelByArticleIdAndLabel(articleId, lStr);
 					if (null == al) {
 						al = new ArticleLabel();
 						al.setArticleId(articleId);
@@ -309,9 +302,7 @@ public class ContentConverServiceImpl implements ContentConverService {
 						aLabelList.add(al);
 					}
 
-					DicCommon dc = dicCommonService
-							.queryDicCommonByGroupIdAndCode("labelKeyWord",
-									lStr);
+					DicCommon dc = dicCommonService.queryDicCommonByGroupIdAndCode("labelKeyWord", lStr);
 					if (null == dc) {
 						dc = new DicCommon();
 						dc.setDicId(UUIDGenerator.uuidGenerator(16));
@@ -329,12 +320,10 @@ public class ContentConverServiceImpl implements ContentConverService {
 			}
 
 			mvo.setMsgCode("success2SaveFile");
-			mvo.setMsgInfo(statusProperty.getSuccess2SaveFile()
-					+ " fileName is :" + title);
+			mvo.setMsgInfo(statusProperty.getSuccess2SaveFile() + " fileName is :" + title);
 		} catch (Exception ioe) {
 			mvo.setMsgCode("cannotSaveFile");
-			mvo.setMsgInfo(statusProperty.getCannotSaveFile() + " Exception: "
-					+ ioe.getStackTrace());
+			mvo.setMsgInfo(statusProperty.getCannotSaveFile() + " Exception: " + ioe.getStackTrace());
 		}
 
 		reMap.put("mvo", mvo);
@@ -350,8 +339,7 @@ public class ContentConverServiceImpl implements ContentConverService {
 	 * @param articleId
 	 * @return
 	 */
-	private MessageVO convent2ImageAndSave(File file, MessageVO mvo,
-			String articleId) {
+	private MessageVO convent2ImageAndSave(File file, MessageVO mvo, String articleId) {
 		boolean flag = false;
 		BriefPic briefPic = null;
 		String _imagePath = imagePath + File.separator + articleId;
@@ -375,14 +363,12 @@ public class ContentConverServiceImpl implements ContentConverService {
 					briefPicService.deleteBriefPicByArticleId(articleId);
 
 					Document doc = new Document(file.getAbsolutePath());
-					ImageSaveOptions options = new ImageSaveOptions(
-							SaveFormat.PNG);
+					ImageSaveOptions options = new ImageSaveOptions(SaveFormat.PNG);
 					options.setResolution(130);
 					options.setUseHighQualityRendering(false);
 					for (int i = 0; i < doc.getPageCount(); i++) {
 						String fileId = UUIDGenerator.uuidGenerator(16);
-						String imageFilePath = _imagePath + File.separator
-								+ "brief_" + i + ".png";
+						String imageFilePath = _imagePath + File.separator + "brief_" + i + ".png";
 						options.setPageIndex(i);
 						doc.save(imageFilePath, options);
 
@@ -399,8 +385,7 @@ public class ContentConverServiceImpl implements ContentConverService {
 			}
 		} catch (Exception ioe) {
 			mvo.setMsgCode("cannotConventDoc2Image");
-			mvo.setMsgInfo(statusProperty.getCannotConventDoc2Image()
-					+ " Exception: " + ioe.getStackTrace());
+			mvo.setMsgInfo(statusProperty.getCannotConventDoc2Image() + " Exception: " + ioe.getStackTrace());
 		}
 		mvo.setMsgCode("success2Convent2Image");
 		mvo.setMsgInfo(statusProperty.getSuccess2Convent2Image());
@@ -420,11 +405,9 @@ public class ContentConverServiceImpl implements ContentConverService {
 		try {
 			// 使用nio方式复制文件到指定目录
 			sourceCh = new FileInputStream(file.getAbsolutePath()).getChannel();
-			destCh = new FileOutputStream(
-					archivePath + File.separator + file.getName()).getChannel();
+			destCh = new FileOutputStream(archivePath + File.separator + file.getName()).getChannel();
 
-			MappedByteBuffer mbb = sourceCh.map(FileChannel.MapMode.READ_ONLY,
-					0, sourceCh.size());
+			MappedByteBuffer mbb = sourceCh.map(FileChannel.MapMode.READ_ONLY, 0, sourceCh.size());
 			destCh.write(mbb);
 
 			clean(mbb);
@@ -433,8 +416,7 @@ public class ContentConverServiceImpl implements ContentConverService {
 			mvo.setMsgInfo(statusProperty.getFinish2Archive());
 		} catch (Exception e) {
 			mvo.setMsgCode("cannotMove2Archive");
-			mvo.setMsgInfo(statusProperty.getCannotMove2Archive()
-					+ " Exception: " + e.getStackTrace());
+			mvo.setMsgInfo(statusProperty.getCannotMove2Archive() + " Exception: " + e.getStackTrace());
 		} finally {
 			try {
 				if (null != sourceCh)
@@ -446,8 +428,7 @@ public class ContentConverServiceImpl implements ContentConverService {
 				Files.deleteIfExists(file.toPath());
 			} catch (IOException e) {
 				mvo.setMsgCode("cannotCloseNIOStream");
-				mvo.setMsgInfo(statusProperty.getCannotCloseNIOStream()
-						+ " Exception: " + e.getStackTrace());
+				mvo.setMsgInfo(statusProperty.getCannotCloseNIOStream() + " Exception: " + e.getStackTrace());
 			}
 		}
 		return mvo;
@@ -465,11 +446,9 @@ public class ContentConverServiceImpl implements ContentConverService {
 			@Override
 			public Object run() {
 				try {
-					Method getCleanerMethod = buffer.getClass()
-							.getMethod("cleaner", new Class[0]);
+					Method getCleanerMethod = buffer.getClass().getMethod("cleaner", new Class[0]);
 					getCleanerMethod.setAccessible(true);
-					sun.misc.Cleaner cleaner = (sun.misc.Cleaner) getCleanerMethod
-							.invoke(buffer, new Object[0]);
+					sun.misc.Cleaner cleaner = (sun.misc.Cleaner) getCleanerMethod.invoke(buffer, new Object[0]);
 					cleaner.clean();
 				} catch (Exception e) {
 					e.printStackTrace();
