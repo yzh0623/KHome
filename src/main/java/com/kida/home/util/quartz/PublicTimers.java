@@ -27,7 +27,7 @@ public class PublicTimers {
 	 */
 
 	// @Scheduled(cron = "0 50 11,23 * * ?")
-	@Scheduled(cron = "0 45 00 * * ?")
+	@Scheduled(cron = "0 45 11 * * ?")
 	public void doPublish() {
 		contentConverService.doIt();
 	}
