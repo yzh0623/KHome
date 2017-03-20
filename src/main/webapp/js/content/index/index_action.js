@@ -70,6 +70,8 @@ function showMoreAction() {
 				size_li = $("#myList li").size();
 				x = (x + 1 <= size_li) ? x + 1 : size_li;
 				$('#myList li:lt(' + x + ')').show();
+
+				initRefAction("ul#myList");
 			}
 		}
 	})
