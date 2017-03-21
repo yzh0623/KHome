@@ -22,7 +22,6 @@ import javax.annotation.Resource;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.aspose.words.Document;
 import com.aspose.words.ImageSaveOptions;
@@ -210,7 +209,6 @@ public class ContentConverServiceImpl implements ContentConverService {
 	 * @param mvo
 	 * @return
 	 */
-	@Transactional(rollbackFor = Exception.class)
 	public MessageVO createImagesAndArchiveFiles(File[] fileArra, MessageVO mvo) {
 		String articleId;
 		Map<String, Object> paramMap;
