@@ -9,7 +9,7 @@
   		#{message.msgId,jdbcType=VARCHAR},
   		#{message.msgCode,jdbcType=VARCHAR},
   		#{message.msgInfo,jdbcType=VARCHAR},
-  		#{message.createTime,jdbcType=TIMESTAMP}
+  		#{message.createTime,jdbcType=DATE}
   		)
   	</insert>
 </mapper>
