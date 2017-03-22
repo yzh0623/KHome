@@ -9,16 +9,8 @@
    				B.UPDATED_INFO AS updateInfo,
    				B.CREATE_TIME AS createTime 
    		FROM UPDATED B 
-   		WHERE B.CREATE_TIME = (
-			SELECT I.CREATE_TIME 
-			FROM(
-				SELECT A.UPDATED_ID,A.UPDATED_INFO,A.CREATE_TIME 
-				FROM UPDATED A 
-				ORDER BY A.CREATE_TIME DESC
-			) I
-		LIMIT 0,1
-		)
-		ORDER BY B.UPDATED_ID ASC
+		ORDER BY B.CREATE_TIME DESC
+        LIMIT 0,5
    </select>
    
    <select id="queryNextDay" resultType="com.kida.home.bean.Updated">
