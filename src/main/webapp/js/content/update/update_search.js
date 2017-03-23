@@ -60,15 +60,24 @@ function ajax2NextDay(oldDay) {
 function update4Integrate(rdList) {
 	var updateVal = "";
 	var updateInsideVal = "";
+	var dayTmp = "";
 
 	var rdSize = rdList.length;
 	if (rdSize > 0) {
 		for (var i = 0; i < rdSize; i++) {
-			if (i == 0) {
-				var days = rdList[i].createTime;
-				var date = new Date(days);
-				var dateStr = date.getFullYear() + "-" + (date.getMonth() + 1)
-						+ "-" + date.getDate();
+
+			var days = rdList[i].createTime;
+			var date = new Date(days);
+			var dateStr = date.getFullYear() + "-" + (date.getMonth() + 1)
+					+ "-" + date.getDate();
+			if (dayTmp != dateStr) {
+				updateVal = updateVal.replace('${setinfo}', updateInsideVal);
+				$("div#olderupdated").append(updateVal);
+
+				updateVal = "";
+				updateInsideVal = "";
+
+				dayTmp = dateStr;
 				updateVal = udpateDyncOutside.replace('${days}', dateStr);
 			}
 			updateInsideVal += udpateDyncInside.replace('${info}',

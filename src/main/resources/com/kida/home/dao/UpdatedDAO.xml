@@ -5,12 +5,21 @@
 <mapper namespace="com.kida.home.dao.UpdatedDAO">
    <!-- 查询最近一次的更新 -->
    <select id="queryLastestDayUpdate" resultType="com.kida.home.bean.Updated">
-   		SELECT B.UPDATED_ID AS updatedId,
-   				B.UPDATED_INFO AS updateInfo,
-   				B.CREATE_TIME AS createTime 
-   		FROM UPDATED B 
-		ORDER BY B.CREATE_TIME DESC
-        LIMIT 0,5
+   	SELECT B.UPDATED_ID AS updatedId,
+		B.UPDATED_INFO AS updateInfo,
+		B.CREATE_TIME AS createTime 
+	FROM UPDATED B 
+	WHERE B.CREATE_TIME IN (
+		SELECT T.CREATE_TIME
+		FROM(
+			SELECT C.CREATE_TIME
+			FROM UPDATED C
+			GROUP BY C.CREATE_TIME
+			ORDER BY C.CREATE_TIME DESC
+			LIMIT 0,5
+		) T
+	)
+	ORDER BY B.CREATE_TIME DESC
    </select>
    
    <select id="queryNextDay" resultType="com.kida.home.bean.Updated">
