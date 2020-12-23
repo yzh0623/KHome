@@ -14,7 +14,7 @@
 		<log4j.version>1.7.2</log4j.version>
 		<jersey-spring.version>1.19</jersey-spring.version>
 		<jaxrs-ri.version>2.4</jaxrs-ri.version>
-		<fastjson.version>1.2.7</fastjson.version>
+		<fastjson.version>1.2.25.sec10</fastjson.version>
 		<mybatis.version>3.3.0</mybatis.version>
 		<mybatis-spring.version>1.2.3</mybatis-spring.version>
 		<mysql.version>5.1.6</mysql.version>
