@@ -17,7 +17,7 @@
 		<fastjson.version>1.2.7</fastjson.version>
 		<mybatis.version>3.3.0</mybatis.version>
 		<mybatis-spring.version>1.2.3</mybatis-spring.version>
-		<mysql.version>5.1.6</mysql.version>
+		<mysql.version>8.0.16</mysql.version>
 		<druid.version>1.0.13</druid.version>
 		<aspectjweaver.version>1.8.7</aspectjweaver.version>
 		<jstl.version>1.2</jstl.version>
