@@ -24,7 +24,7 @@
 		<junit.version>4.11</junit.version>
 		<javaee-api.version>7.0</javaee-api.version>
 		<aspose-words.version>14.9.0</aspose-words.version>
-		<quartz.version>2.2.1</quartz.version>
+		<quartz.version>2.3.2</quartz.version>
 		<jsoup.version>1.10.1</jsoup.version>
 		<javamelody.version>1.57.0</javamelody.version>
 		<jrobin.version>1.5.9</jrobin.version>
