@@ -21,7 +21,7 @@
 		<druid.version>1.0.13</druid.version>
 		<aspectjweaver.version>1.8.7</aspectjweaver.version>
 		<jstl.version>1.2</jstl.version>
-		<junit.version>4.11</junit.version>
+		<junit.version>4.13.1</junit.version>
 		<javaee-api.version>7.0</javaee-api.version>
 		<aspose-words.version>14.9.0</aspose-words.version>
 		<quartz.version>2.2.1</quartz.version>
